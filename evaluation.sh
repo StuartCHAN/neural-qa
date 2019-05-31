@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-cat ./data/$1_model/evaluation.csv
 
 cat ./data/$1/data.en  | while read LINE  
 do
