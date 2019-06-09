@@ -1,0 +1,44 @@
+{
+    "@confidence": "0.35", 
+    "@sparql": "", 
+    "@support": "0", 
+    "@text": "President Obama called Wednesday on Congress to extend a tax break for students included in last year's economic stimulus package, arguing that the policy provides more generous assistance.", 
+    "@policy": "whitelist", 
+    "@types": "", 
+    "Resources": [
+        {
+            "@support": "25941", 
+            "@URI": "http://dbpedia.org/resource/Barack_Obama",
+            "@surfaceForm": "President Obama", 
+            "@offset": "0", 
+            "@percentageOfSecondRank": "0.054861611986525206", 
+            "@similarityScore": "0.9479916499347557",
+            "@types": "Http://xmlns.com/foaf/0.1/Person,Wikidata:Q82955,Wikidata:Q5,Wikidata:Q30461,Wikidata:Q24229398,Wikidata:Q215627,DUL:NaturalPerson,DUL:Agent,Schema:Person,DBpedia:President,DBpedia:Politician,DBpedia:Person,DBpedia:Agent"
+            }, 
+        {
+            "@support": "28529", 
+            "@URI": "http://dbpedia.org/resource/United_States_Congress", 
+            "@surfaceForm": "Congress", 
+            "@offset": "36", 
+            "@percentageOfSecondRank": "0.0014851062210128982", 
+            "@similarityScore": "0.9957374192992914", 
+            "@types": "Wikidata:Q43229,Wikidata:Q24229398,Wikidata:Q11204,DUL:SocialPerson,DUL:Agent,Schema:Organization,DBpedia:Organisation,DBpedia:Legislature,DBpedia:Agent"
+            }, 
+        {
+            "@support": "82", 
+            "@URI": "http://dbpedia.org/resource/Tax_break", 
+            "@surfaceForm": "tax break", 
+            "@offset": "57", 
+            "@percentageOfSecondRank": "0.0",
+            "@similarityScore": "1.0", 
+            "@types": ""},
+        {
+            "@support": "39", 
+            "@URI": "http://dbpedia.org/resource/Economic_Stimulus_Act_of_2008", 
+            "@surfaceForm": "economic stimulus", 
+            "@offset": "104", 
+            "@percentageOfSecondRank": "1.5446957952808488E-4", 
+            "@similarityScore": "0.9998455542260379", 
+            "@types": ""}
+            ]
+}
