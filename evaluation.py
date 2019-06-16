@@ -3,6 +3,15 @@
 Created on Thu May 28 11:01:38 2019
 
 @author: Stuart
+
+The application will be started on http://localhost:8080. Test it by simply sending an HTTP POST request to http://localhost:8080/gerbil with the parameters:
+
+query: A UTF-8 encoded String 
+lang: language of the question 
+An example request would look like: 
+curl -d "query=What is the capital of Germany?&lang=en" -X POST http://localhost:8080/gerbil
+
+To test against GERBIL (http://gerbil-qa.aksw.org/gerbil/config), put the public IP address of your system (instead of localhost) in the webservice URI field.
 """
 
 

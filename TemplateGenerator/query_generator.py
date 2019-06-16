@@ -5,15 +5,14 @@ import sys
 import time
 import random
 import datetime
+#import quepy
 
-import quepy
-#from SPARQLWrapper import SPARQLWrapper, JSON
 from SPARQLWrapper import SPARQLWrapper, JSON, XML, N3, RDF, CSV, TSV
 
-import json
+#import json
 
 sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-dbpedia = quepy.install("dbpedia")
+#dbpedia = quepy.install("dbpedia")
 
 # quepy.set_loglevel("DEBUG")
 '''
@@ -130,6 +129,10 @@ def wikipedia2dbpedia(wikipedia_url):
         sys.exit(1)
     else:
         return results["results"]["bindings"][0]["url"]["value"]
+
+
+def get_query():
+    pass
 
 
 def query_generate(text): 

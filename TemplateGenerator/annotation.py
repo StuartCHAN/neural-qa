@@ -26,6 +26,9 @@ def annotate(text):
         surfaceForm = resource["@surfaceForm"]
         uri = resource["@URI"]
         ref = uri.replace("http://dbpedia.org/resource/", '')
+        ref = ref.replace("http://dbpedia.org/ontology/", '')
+        ref = ref.replace("http://dbpedia.org/property/", '')
+        
         types = resource["@types"]
         t = ''
         db = []
@@ -49,27 +52,33 @@ def getTemplate(text):
     entities = result.keys()
     n = 65 #88
     schemas = []
+    variables = {}
+    temp = ""
     for e in entities:
         s = result[e]["Schema"]
         if s != '':
-            placeholder = '<'+ chr(n)+'>'
+            p = chr(n)
+            placeholder = '<'+ p +'>'
             temp = text.replace(e, placeholder)
             n += 1 
-            schemas.append(s);
-    return temp, schemas ;
+            schemas.append(s)
+            variables[e] = p
+           
+    return temp, schemas,variables ;
     
 
 
-'''
+
 if __name__ == '__main__':
     #text = """President Obama called Wednesday on Congress to extend a tax break for students included in last year's economic stimulus package, arguing that the policy provides more generous assistance."""
     #text = "President Obama"
-    text = "what time is it in Chile?"
+    #text = "what time is it in Chile?"
+    text = "How old is Bob Dylan" #'Which movie does Audrey Hepburn star ?'
     response_json = annotate(text)
     print(response_json)
     temp = getTemplate(text) 
     print("the template is :", temp)
-'''
+
 
 
 '''
