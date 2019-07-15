@@ -17,8 +17,10 @@ from semantic_parser import hasProperties
 def glove_to_w2v(glove_input_file, word2vec_output_file):
     (count, dimensions) = gensim.scripts.glove2word2vec.glove2word2vec(glove_input_file, word2vec_output_file)
     print("The count is: ", count, ' , \n and the dimension is: ', dimensions)
+ 
     
-
+# This is to pre-process the string of entities like the URL links of the DBpedia entites to transform into a readable string,
+# for example: the "http://dbpedia.org/ontology/spouse" will be transformed into the "spouse" that is fit for word2vec model mapping.
 def property_process(strin ):
     if "/" in strin:
         strin = str(strin).split("/")[-1]
@@ -28,12 +30,8 @@ def property_process(strin ):
     return stri;
 
 
-#def properties_similarity_process(phrase, strin, your_glove_path):
-#    stri = property_process(strin )
-#    property_calculator = calculator(your_glove_path)
-#    score = property_calculator.score(phrase, stri)
-#    return score;
 
+# This is the function to compare the similarity between a phrase and a list of strings of the properties
 def get_most_similar(phrase, strins_list, your_glove_path):
     print("The properties processor is going to work: ")
     scores_list = []
@@ -44,12 +42,12 @@ def get_most_similar(phrase, strins_list, your_glove_path):
         print(strin)
         strin = property_process(strin )
         print(strin)
-        if len(str(strin).split())==1:
+        if len(str(strin).split())==1: # if there is only a single string to compare, we just use gensim.
             try:
                 score = property_calculator.model.similarity(phrase, strin)
             except:
                 score = property_calculator.score(phrase, strin)
-        elif len(str(strin).split()) >1:
+        elif len(str(strin).split()) >1: # else if it's long and numerous, we use our own method.
             score = property_calculator.score(phrase, strin)
         print(score)
         scores_list.append(score)
@@ -62,7 +60,7 @@ def get_most_similar(phrase, strins_list, your_glove_path):
     return sims ;
     
 
-
+# This is the pipeline for all the functions above:
 class properties_processor:
     def __init__(self, vec_file):
         self.vec_file = vec_file

@@ -5,7 +5,7 @@ Final demo
 @author: Stuart
 """
 import gensim
-import nltk
+import nltk # we will try to change to spacy which is lite and swift.
 from nltk.tokenize import word_tokenize
 import vec_utils.vectors_distance_calculator as vectors_distance_calculator
 #import vectors_distance_calculator as vectors_distance_calculator
@@ -53,7 +53,7 @@ class calculator: # the calculator to get the comparing score
                         print(word2," no vector found...")
                         pass;
                     try:
-                        sim = self.model.similarity(word, word2) # calculate the Jaccard similarity coefficient distance for words
+                        sim = self.model.similarity(word, word2) # calculate the similarity distance for words
                     except:
                         sim = 0 ;
                     print(" ----> ", sim)
