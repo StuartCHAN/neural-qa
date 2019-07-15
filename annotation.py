@@ -90,8 +90,7 @@ def getTemplate(text):
             temp = text.replace(e, placeholder)
             n += 1 
             schemas.append(s)
-            variables[e] = p
-           
+            variables[e] = p           
     return temp, schemas, variables ;
     
 

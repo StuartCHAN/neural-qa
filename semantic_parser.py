@@ -134,7 +134,7 @@ def dependParse(question):
     return pairs;
 
 
-
+"""
 if __name__ == "__main__":
     
     question = "when was the Battle of Gettysburg?"
@@ -150,6 +150,7 @@ if __name__ == "__main__":
     print (Predicates)
     print 
     print (properties)
+"""
     
 #    print "begin to dump:"
 #    fp1 = file("Predicates.json", 'w')
