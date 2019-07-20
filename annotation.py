@@ -96,15 +96,15 @@ def getTemplate(text):
 
 
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
     #text = """President Obama called Wednesday on Congress to extend a tax break for students included in last year's economic stimulus package, arguing that the policy provides more generous assistance."""
     #text = "President Obama"
-    #text = "what time is it in Chile?"
+    text_ = "what time is it in Chile?"
 #    text = "How old is Bob Dylan" #'Which movie does Audrey Hepburn star ?'
-#    response_json = annotate(text)
-#    print(response_json)
-#    temp = getTemplate(text) 
-#    print("the template is :", temp)
+    response_json_ = annotate(text_)
+    print(response_json_)
+    temp_, schemas, variables = getTemplate(text_) 
+    print("the template is :", temp_)
 
 
 

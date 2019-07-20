@@ -9,6 +9,7 @@ import pandas as pd
 import annotation
 import query_generator
 import semantic_parser
+import properties_processor
 
 
 '''
@@ -24,10 +25,26 @@ Interrogative = ['what','who','Which','whose', 'whom','when', 'where', 'why', 'h
 
 def template_generater(question):
         result = annotation.annotate(question)
-        assert(result.items() is not False)
-        assert(len(result)>0)
+        #assert(result.items() is not False)
+        #assert(len(result)>0)
         
         temp, schemas,variables = annotation.getTemplate(question)
+        phrases = semantic_parser.extract_phrase(question)
+        properties = []
+        Properties = []
+        processor = properties_processor.properties_processor()
+        for key in result.keys():
+            var = result[key]['Ref']
+            phrase = str(" ").join(phrases)
+            properti = processor.process(var, phrase)
+            properties.append(str(" "+variables[key]+" "+properti+"."))
+            Properties.append(str(" <"+str(variables[key]).upper()+"> "+properti+"."));
+        properties = str("#").join(properties)
+        if properties[-1]==".":
+            properties[-1]=" "
+        Properties = str("#").join(Properties)
+        if Properties[-1]==".":
+            Properties[-1]=" "
         if (len(schemas)>0) and (len(schemas[0])>0) and (schemas[0]!='') : 
             clas = schemas[0] #)   str('dbo:'+         
         else:
@@ -47,12 +64,13 @@ def template_generater(question):
         conditions=''
         for pa in pairs_annotated:
             if (len(pa)==1) and (pa[0][-1] in variables.values() ):
-                conditions += str(' '+pa[0]+' '+clas+' '+'[]'+'.'+' ' ) #[conditions+e+clas for e in pa]
+                conditions += str(' '+pa[0]+' a'+clas+' '+'.'+' ' ) #[conditions+e+clas for e in pa] #+'[]'
             elif len(pa)>1:
                 for e in pa:
-                    conditions += str(' '+e ) ;
-                conditions = conditions +' '+'[]'+ '.'+' ' ; #
-            conditions = conditions +'#';
+                    conditions += str(' '+pa[0]+' '+e ) ;
+                conditions = conditions +' '+ '.'+' '; #+'[]'
+            conditions = conditions +'#'+str(' '+pa[0]+' '+e )
+            conditions = conditions +'#'+properties ;
             
         conditionsList = conditions.split('#') 
         conditionsSet = list(set(conditionsList ) )
@@ -68,7 +86,7 @@ def template_generater(question):
                 for e in pa:
                     Conditions += str(' '+e ) ;
                 Conditions +=   '.'+' ' ; #
-            Conditions = Conditions +'#';
+            Conditions = Conditions +'#'+Properties;
             
         ConditionsList = Conditions.split('#') 
         ConditionsSet = list(set(ConditionsList ))

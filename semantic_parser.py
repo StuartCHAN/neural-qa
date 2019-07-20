@@ -4,8 +4,34 @@
 
 import nltk
 from nltk.parse.stanford import StanfordDependencyParser
+from nltk.corpus import stopwords
+from nltk.corpus import brown
 from SPARQLWrapper import SPARQLWrapper, JSON
 import json
+import numpy as np
+ 
+
+#text = "Sentiment analysis is a challenging subject in machine learning.\
+# People express their emotions in language that is often obscured by sarcasm,\
+#  ambiguity, and plays on words, all of which could be very misleading for \
+#  both humans and computers.".lower()
+  
+def extract_phrase(text):
+    text_list = nltk.word_tokenize(text)
+    # to remove the English punctuations
+    english_punctuations = [',', '.', ':', ';', '?', '(', ')', '[', ']', '&', '!', '*', '@', '#', '$', '%']
+    text_list = [word for word in text_list if word not in english_punctuations]
+    # to remove the stop words
+    stops = set(stopwords.words("english"))
+    text_list = [word for word in text_list if word not in stops]
+    
+    tagged = nltk.pos_tag(text_list)
+    entities = []
+    for t in tagged :
+        if str(t[1]) in ['NN', 'NNS', 'NNPS', 'NNP']:
+            e = (str(t[0]), str(t[1]) )
+            entities.append(e)
+    return entities;
 
 
 dbr_query = '''
@@ -134,12 +160,21 @@ def dependParse(question):
     return pairs;
 
 
+
+
+    
+    
+    
+    
+    
 """
 if __name__ == "__main__":
     
     question = "when was the Battle of Gettysburg?"
     annotated = annotate(question)
     print(annotated)
+    tagged_ = POStag(text)
+    phrases = extract_phrase(text)
       
     dbo = "Person" #http://dbpedia.org/resource/Barack_Obama
     Predicates = hasPredicates(dbo)

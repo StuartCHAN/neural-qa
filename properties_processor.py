@@ -4,6 +4,7 @@ Created on Wed Jul 10 12:21:50 2019
 
 @author: Lenovo
 """
+
 import numpy as np
 import string
 import gensim
@@ -12,6 +13,7 @@ from vec_utils.similarity_calculator import calculator
 #from similarity_calculator import calculator
 from semantic_parser import hasProperties  
 
+your_glove_path = './data/glove2wordvec/word2vec.6B.300d.txt'
 
 
 def glove_to_w2v(glove_input_file, word2vec_output_file):
@@ -32,7 +34,7 @@ def property_process(strin ):
 
 
 # This is the function to compare the similarity between a phrase and a list of strings of the properties
-def get_most_similar(phrase, strins_list, your_glove_path):
+def get_most_similar(phrase, strins_list):
     print("The properties processor is going to work: ")
     scores_list = []
     scores_map = {}
@@ -62,18 +64,23 @@ def get_most_similar(phrase, strins_list, your_glove_path):
 
 # This is the pipeline for all the functions above:
 class properties_processor:
-    def __init__(self, vec_file):
-        self.vec_file = vec_file
+    def __init__(self):
+        self.vec_file = your_glove_path
     def process(self, dbr, phrase ):
         self.properties = hasProperties(dbr)
         print(" The Properties are: \n ", self.properties)
         sims = get_most_similar(phrase, self.properties, self.vec_file)
         sim_properties = [[properti for properti in self.properties if s in properti] for s in sims]
         print(" The most similar : ", sim_properties)
-        sim_properti = sim_properties[0]
+        sim_properti = sim_properties[0][0]
         print(" ----> ",sim_properti)
         return sim_properti
         
+
+
+    
+
+
 
 
 if __name__ == "__main__":
@@ -81,7 +88,7 @@ if __name__ == "__main__":
     #your_glove_path = 'F:/portfolio/References/Stanford_GloVe/glove.840B.300d.txt'    
     #glove_input_file = your_glove_path
     #word2vec_output_file = 'F:/portfolio/References/Stanford_GloVe/glove.840B.300d.word2vec.txt'
-    word2vec_output_file = 'F:/portfolio/References/Stanford_GloVe/glove2wordvec/word2vec.6B.300d.txt'
+    word2vec_output_file = './data/glove2wordvec/word2vec.6B.300d.txt'
     #model = gensim.models.KeyedVectors.load_word2vec_format(word2vec_output_file, binary=False)
     #sim = model.similarity("mother", "dog")
     #print(sim)
