@@ -69,7 +69,7 @@ class properties_processor:
     def process(self, dbr, phrase ):
         self.properties = hasProperties(dbr)
         print(" The Properties are: \n ", self.properties)
-        sims = get_most_similar(phrase, self.properties, self.vec_file)
+        sims = get_most_similar(phrase, self.properties )
         sim_properties = [[properti for properti in self.properties if s in properti] for s in sims]
         print(" The most similar : ", sim_properties)
         sim_properti = sim_properties[0][0]
