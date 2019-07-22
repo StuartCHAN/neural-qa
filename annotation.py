@@ -92,8 +92,20 @@ def getTemplate(text):
             schemas.append(s)
             variables[e] = p           
     return temp, schemas, variables ;
+ 
     
 
+quest = ['am','is','are','was','were','be','do','did','does','have','has','had','can','could','shall','should','will','would']
+Interrogative = ['what','who','which','whose', 'whom','when', 'where', 'why', 'how']
+    
+def get_header(question):
+    question = str(question).strip().split()
+    if question[0] in quest:
+        head = False
+    else:
+        head = True;
+    return head
+    
 
 
 if __name__ == '__main__':

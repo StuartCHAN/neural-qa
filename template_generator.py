@@ -15,11 +15,11 @@ import properties_processor
 
 
 
-be = ['NNP','VBZ','IN','WRB']
-Interrogative = ['what','who','Which','whose', 'whom','when', 'where', 'why', 'how']
+
 
 
 def template_generater(question):
+        
         result = annotation.annotate(question)
         #assert(result.items() is not False)
         #assert(len(result)>0)        
@@ -55,6 +55,8 @@ def template_generater(question):
                 elif (p not in variables.keys()) and (p in result.keys() ):
                     v.append(result[p]['Ref']) 
                 pairs_annotated.append(v);
+        
+        head = annotation.get_header(question)
         
         conditions=''
         for pa in pairs_annotated:
@@ -93,8 +95,13 @@ def template_generater(question):
         for v in variables.values():
             p += ' ?'+v
             P += ' <'+ str(v).upper() + '> '
-        query = ' select distinct('+p+') where { '+conditions+' };' #
-        Query = ' select '+P+' where {' +Conditions+ '};' #S
+        
+        if head:
+            query = ' select distinct('+p+') where { '+conditions+' };' #
+            Query = ' select '+P+' where {' +Conditions+ '};' #S
+        else:
+            query = ' ask where { '+conditions+' };' #
+            Query = ' ask where {' +Conditions+ '};'
         template = (clas, temp, Query, query)
         return template;
             
