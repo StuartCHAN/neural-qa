@@ -69,8 +69,7 @@ class NounPhraseExtractor(object):
         return matches;
 
 
-sentence = 'The author writes a book.'
-matches = NounPhraseExtractor(sentence).extract()
+
 
 def ie_preprocess(document):
      sentences = nltk.sent_tokenize(document) 
@@ -78,13 +77,19 @@ def ie_preprocess(document):
      sentences = [nltk.pos_tag(sent) for sent in sentences] 
      return sentences;
  
-sents = ie_preprocess(sentence)
-grammar = "NP: {<DT>?<JJ>*<NN>}"
-cp = nltk.RegexpParser(grammar)
-result = cp.parse(sents)
+    
 
-for n in result: #chunked
-	if isinstance(n, nltk.tree.Tree):
-		if n.node=='NP':
-			a = n;
-            
+#if __name__ == '__main__':    
+    #sentence = 'The author writes a book.'
+    #matches = NounPhraseExtractor(sentence).extract()
+    # 
+    #sents = ie_preprocess(sentence)
+    #grammar = "NP: {<DT>?<JJ>*<NN>}"
+    #cp = nltk.RegexpParser(grammar)
+    #result = cp.parse(sents)
+    #
+    #for n in result: #chunked
+    #	if isinstance(n, nltk.tree.Tree):
+    #		if n.node=='NP':
+    #			a = n;
+                

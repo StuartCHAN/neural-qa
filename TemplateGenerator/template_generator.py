@@ -15,9 +15,6 @@ import properties_processor
 
 
 
-
-
-
 def template_generater(question):
         
         result = annotation.annotate(question)

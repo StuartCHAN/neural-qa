@@ -11,10 +11,7 @@ import json
 import numpy as np
  
 
-#text = "Sentiment analysis is a challenging subject in machine learning.\
-# People express their emotions in language that is often obscured by sarcasm,\
-#  ambiguity, and plays on words, all of which could be very misleading for \
-#  both humans and computers.".lower()
+
   
 def extract_phrase(text):
     text_list = nltk.word_tokenize(text)

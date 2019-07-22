@@ -13,6 +13,7 @@ from vec_utils.similarity_calculator import calculator
 #from similarity_calculator import calculator
 from semantic_parser import hasProperties  
 
+#default path is in the "data/glove2wordvec" folder, but your can set this to your own path
 your_glove_path = './data/glove2wordvec/word2vec.6B.300d.txt'
 
 
@@ -85,25 +86,13 @@ class properties_processor:
 
 if __name__ == "__main__":
 
-    #your_glove_path = 'F:/portfolio/References/Stanford_GloVe/glove.840B.300d.txt'    
-    #glove_input_file = your_glove_path
-    #word2vec_output_file = 'F:/portfolio/References/Stanford_GloVe/glove.840B.300d.word2vec.txt'
     word2vec_output_file = './data/glove2wordvec/word2vec.6B.300d.txt'
-    #model = gensim.models.KeyedVectors.load_word2vec_format(word2vec_output_file, binary=False)
-    #sim = model.similarity("mother", "dog")
-    #print(sim)
-    #(count, dimensions) = glove2word2vec(glove_input_file, word2vec_output_file)
-    #print(count, '\n', dimensions)
-    
+       
     dbr = "Barack_Obama"
-    phrase = "wife"
-    processor = properties_processor(word2vec_output_file)
-    sim_properties = processor.process(dbr, phrase)
-    #properties = hasProperties(dbr)
-    #print("properties: \n ", properties)
-#    sims = get_most_similar(phrase, properties, word2vec_output_file)
-#    print("similar : ", sims)
     
-#    sims = ["a", "b", "c","d"]
-#    properties = ["axy", "xyb", "xcy","ydc"]
-#    sim_properties = [[properti for properti in properties if s in properti] for s in sims]
+    phrase = "wife"
+    
+    processor = properties_processor(word2vec_output_file)
+    
+    sim_properties = processor.process(dbr, phrase)
+

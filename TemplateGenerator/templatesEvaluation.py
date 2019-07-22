@@ -11,9 +11,10 @@ import pandas as pd
 import numpy as np
 from template_generator import template_generater
 from bleu import compute_bleu
+import sys
+import importlib
 
 
-tempfile = 'F:/portfolio/GSoC/DBpedia/NSpMdatasets/QALD7Training_NSpM_Query_Templates/NSpMQueryTemplatesQALD7QT.LOC.csv'   
 
 def placeholder(string):
     if ('<' in string) or ('>' in string) or ('?' in string):
@@ -71,54 +72,21 @@ def evaluateBLEU(tempfile):
     return result ;
 
 
-#def evaluateBLEU(tempfile):
-#    temps = pd.read_csv(tempfile, header=None)
-#    questions = list(temps[0])
-#    standard_temp_quest = list(temps[1])
-#    standard_temp_query = list(temps[2])
-#    #standard_temp_Query = list(temps[3])
-#    standard_sparql = list(temps[4])
-#    templates = []
-#    for quest in questions:
-#            #print(quest)
-#            # quest = questions[1]
-#            try:            
-#                template = template_generater(quest)
-#                #print(template)
-#            except:
-#                template = ['placeholder', 'placeholder', 'placeholder', 'placeholder'] 
-#                #print('__________');
-#            templates.append(template)
-#            #print();
-#    assert(len(questions)==len(standard_temp_quest))and(len(templates)==len(standard_temp_query))
-#    length = len(templates)
-#    scoreset = []
-#    for i in range(0, length):
-#        template = templates[i]
-#        if (type(template) is not str):
-#            temp_quest = placeholder(template[1])
-#            temp_query = placeholder(template[2])
-#            temp_Query = placeholder(template[3])
-#            #score = sentence_bleu(reference, candidate)
-#            quest_score = sentence_bleu(str(standard_temp_quest[i]).split(), str(temp_quest).split() )
-#            query_score = sentence_bleu(str(standard_temp_query[i]).split(), str(temp_query).split() )
-#            Query_score = sentence_bleu(str(standard_temp_query[i]).split(), str(temp_Query).split() )
-#            query_scores = (query_score + Query_score)/2.0
-#            scores = (quest_score, query_scores)
-#        else:
-#            scores = (0, 0)
-#        scoreset.append(scores);
-#    return scoreset ;
-
 
 if __name__ == '__main__':
+    
+    importlib.reload(sys) 
+    
+    tempfile = sys.argv[1]
+    
     result = evaluateBLEU(tempfile)
+    
     with open('./templatesEvaluations.json', 'w', encoding='utf-8') as outfile:
-        #print('saving...')
+        print('saving...')
         json.dump(result, outfile, ensure_ascii=False, indent=4)  
     print('ok!')
     
-    #scoreset.to_csv('./bleu_score.csv')
+ 
     
     
     

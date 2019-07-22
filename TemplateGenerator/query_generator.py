@@ -14,11 +14,6 @@ from SPARQLWrapper import SPARQLWrapper, JSON, XML, N3, RDF, CSV, TSV
 sparql = SPARQLWrapper("http://dbpedia.org/sparql")
 #dbpedia = quepy.install("dbpedia")
 
-# quepy.set_loglevel("DEBUG")
-'''
-class query_generator:
-    def __init__(self, text):
-'''
 
 def print_define(results, target, metadata=None):
     for result in results["results"]["bindings"]:

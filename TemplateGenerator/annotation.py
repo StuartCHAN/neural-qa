@@ -97,6 +97,8 @@ def getTemplate(text):
 
 quest = ['am','is','are','was','were','be','do','did','does','have','has','had','can','could','shall','should','will','would']
 Interrogative = ['what','who','which','whose', 'whom','when', 'where', 'why', 'how']
+
+
     
 def get_header(question):
     question = str(question).strip().split()
@@ -108,45 +110,5 @@ def get_header(question):
     
 
 
-if __name__ == '__main__':
-    #text = """President Obama called Wednesday on Congress to extend a tax break for students included in last year's economic stimulus package, arguing that the policy provides more generous assistance."""
-    #text = "President Obama"
-    text_ = "what time is it in Chile?"
-#    text = "How old is Bob Dylan" #'Which movie does Audrey Hepburn star ?'
-    response_json_ = annotate(text_)
-    print(response_json_)
-    temp_, schemas, variables = getTemplate(text_) 
-    print("the template is :", temp_)
 
 
-
-'''
-    resources = response_json["Resources"]
-    result = {}
-    for resource in response:
-        surfaceForm = resource["@surfaceForm"]
-        uri = resource["@URI"]
-        types = resource["@types"]
-        t = ''
-        db = []
-        for i in types.split(","):
-            if "Schema:" in i:
-                i.replace("Schema:",'')
-                i.strip()
-                t = i;
-            if "DBpedia:" in i:
-                i.replace("DBpedia:",'')
-                i.strip()
-                db.append(i);
-        r = { "@URI":uri, "Schema":t, "DBpedia":db  } 
-        result[surfaceForm] = r;
-    
-
-    #path = str(datatime.datatime())+".json"
-    print ("begin to dump:")
-    fp = file("result.json", 'w')
-    print "dumping..."
-    json.dump(response_json,fp)
-    print "dumped."
-    
-'''
