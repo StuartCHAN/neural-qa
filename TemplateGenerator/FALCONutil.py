@@ -33,7 +33,16 @@ import importlib
 import unidecode    
 import requests
 import pandas as pd
+import gensim
+import spacy
 
+import annotation
+
+nlp = spacy.load('en_core_web_md')  # make sure to use larger model!
+tokens = nlp(u'dog cat banana') 
+
+w2v_path = "../data/glove2wordvec/word2vec.6B.300d.txt" # This is the fixed path in the repository.
+model = gensim.models.KeyedVectors.load_word2vec_format(w2v_path, binary=False)
 
 def replacement(dblink):
     dblink = str(dblink).replace('http://dbpedia.org/ontology/','dbo:')
@@ -73,8 +82,27 @@ def make_template(sentence):
     
     relations = content["relations"]
     
+    annotateds = annotation.annotate(sentence)
+    
+    falcon_pool = {}
+    for entity in entities:
+        falcon_pool[str(entity[-1]).lower()] = replacement(entity[0])
+        
+    spolight_pool = {}
+    for entity in entities:
+        spolight_pool[str(entity[-1]).lower()] = replacement(entity[0])
+    
+    pool = set()
+    for 
+    
     new_q = str(sentence).strip().lower()
     
+    for key in annotateds.keys():
+        k = str(key).strip().lower()
+        if k in new_q:
+            dbe = annotateds[key]['Ref']
+            new_q = new_q.replace(k, '<'+dbe+'>')
+                
     for entity in entities:
         dbe = replacement(entity[0])
         phrase = str(entity[-1]).lower()
@@ -96,12 +124,12 @@ def make_template(sentence):
 
 if __name__ == '__main__':
     
-    importlib.reload(sys) 
-    
-    fp = sys.argv[1]
-#    fp = 'F:/portfolio/GSoC/DBpedia/neural-qa/data/DBNQA/DBNQA/DBNQA.dev.597to3827.en'
+#    importlib.reload(sys) 
+#    
+#    fp = sys.argv[1]
+    fp = 'F:/portfolio/GSoC/DBpedia/neural-qa/data/DBNQA/DBNQA/DBNQA.dev.597to3827.top300.en'
     questions = open(fp, 'r', encoding="UTF-8").readlines()
-#    question = "what is hawkeye real name?"
+    question = "what is hawkeye real name?"
     #q = unidecode.unidecode(question)
 #    annotatees = []
 #    for question in questions:

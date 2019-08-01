@@ -26,8 +26,7 @@ def searchLookup(word):
     return uris ;
 
 
-
-def annotate(text):
+def spotlight(text):
     headers = {
         'Accept': 'application/json',
     }
@@ -38,6 +37,11 @@ def annotate(text):
     }
     response = requests.post('http://api.dbpedia-spotlight.org/en/annotate', headers=headers, data=data)
     response_json = response.json()
+    return response_json
+
+
+def annotate(text):
+    response_json = spotlight(text)
     if "Resources" in response_json.keys():
         resources = response_json["Resources"]
         result = {}
@@ -110,5 +114,9 @@ def get_header(question):
     
 
 
+#quest = "which television show were created by joe austen?"
 
+# which <dbo:transmission> were <dbo:author> by <dbo:pastor> <dbo:mass>?
 
+#anno = annotate(quest)
+#spl = spotlight(quest)

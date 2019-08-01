@@ -1,0 +1,25 @@
+select ?a where { <A> <http://dbpedia.org/ontology/currentSeason> ?a };select ?a where { ?a <http://dbpedia.org/ontology/currentSeason> [] . ?a a <http://dbpedia.org/ontology/SportsLeague> } 
+select ?a where { <A> <http://dbpedia.org/ontology/numberOfTeams> ?a };select ?a where { ?a <http://dbpedia.org/ontology/numberOfTeams> [] . ?a a <http://dbpedia.org/ontology/SportsLeague> } 
+select ?a where { <A> <http://dbpedia.org/ontology/prospectLeague> ?a };select ?a where { ?a <http://dbpedia.org/ontology/prospectLeague> [] . ?a a <http://dbpedia.org/ontology/SportsLeague> } 
+select ?a where { <A> <http://dbpedia.org/ontology/leagueManager> ?a };select ?a where { ?a <http://dbpedia.org/ontology/leagueManager> [] . ?a a <http://dbpedia.org/ontology/SportsLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/AmericanFootballLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/AmericanFootballLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/AustralianFootballLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/AustralianFootballLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/AutoRacingLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/AutoRacingLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/BaseballLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/BaseballLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/BasketballLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/BasketballLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/BowlingLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/BowlingLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/BoxingLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/BoxingLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/CanadianFootballLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/CanadianFootballLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/CricketLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/CricketLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/CurlingLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/CurlingLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/CyclingLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/CyclingLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/FieldHockeyLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/FieldHockeyLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/FormulaOneRacing> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/FormulaOneRacing> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/GolfLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/GolfLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/HandballLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/HandballLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/IceHockeyLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/IceHockeyLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/InlineHockeyLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/InlineHockeyLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/LacrosseLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/LacrosseLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/MixedMartialArtsLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/MixedMartialArtsLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/MotorcycleRacingLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/MotorcycleRacingLeague> } 
+ask where { <A> rdf:type <http://dbpedia.org/ontology/PaintballLeague> };select distinct(?a)  where { ?a a <http://dbpedia.org/ontology/PaintballLeague> } 
