@@ -114,9 +114,9 @@ def get_header(question):
     
 
 
-#quest = "which television show were created by joe austen?"
+quest = "which television show were created by joe austen?"
 
 # which <dbo:transmission> were <dbo:author> by <dbo:pastor> <dbo:mass>?
 
-#anno = annotate(quest)
-#spl = spotlight(quest)
+anno = annotate(quest)
+spl = spotlight(quest)

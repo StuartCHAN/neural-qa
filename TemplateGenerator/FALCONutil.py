@@ -93,7 +93,7 @@ def make_template(sentence):
         spolight_pool[str(entity[-1]).lower()] = replacement(entity[0])
     
     pool = set()
-    for 
+   #for 
     
     new_q = str(sentence).strip().lower()
     
