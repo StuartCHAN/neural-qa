@@ -88,11 +88,15 @@ def make_template(sentence):
     
     falcon_pool = {}
     for entity in entities:
-        falcon_pool[str(entity[-1]).lower()] = replacement(entity[0])
+        falcon_pool[str(entity[-1]).strip().lower()] = replacement(entity[0])
+    for relation in relations:
+        falcon_pool[str(relation[-1]).strip().lower()] = replacement(relation[0])
         
     spolight_pool = {}
-    for entity in entities:
-        spolight_pool[str(entity[-1]).lower()] = replacement(entity[0])
+    for key in annotateds.keys():
+        k = str(key).strip().lower()       
+        dbe = annotateds[key]['Ref']
+        spolight_pool[k] = dbe
     
     pool = {}
     overlapping_phrases = list(set(falcon_pool.keys() ).intersection(set(spolight_pool.keys() )))
@@ -108,16 +112,18 @@ def make_template(sentence):
     for key in annotateds.keys():
         k = str(key).strip().lower()
         if k in new_q:
-            dbe = annotateds[key]['Ref']
+            dbe = annotateds[key]['Ref'] if (k not in pool.keys() ) else pool[k]
             new_q = new_q.replace(k, '<'+dbe+'>')
                 
     for entity in entities:
-        dbe = replacement(entity[0])
+        k = str(entity[-1]).strip().lower()
+        dbe = replacement(entity[0]) if (k not in pool.keys() ) else pool[k]
         phrase = str(entity[-1]).lower()
         new_q = new_q.replace(phrase, '<'+dbe+'>')
         
     for relation in relations:
-        rel = replacement(relation[0])
+        k = str(relation[-1]).strip().lower()
+        rel = replacement(relation[0]) if (k not in pool.keys() ) else pool[k]
         phrase = str(relation[-1]).lower()
         new_q = new_q.replace(phrase, '<'+rel+'>')
         
