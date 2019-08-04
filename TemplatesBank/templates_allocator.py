@@ -15,7 +15,7 @@ templates_pool = []
 for file in files: #iterate to get the folders
      if os.path.isdir(path+"/"+file): # whether a folder 
           templates_pool.append(file) #get the folder into the templates_pool list
-print('\n The existing templates pool contains these Classes: \n ', s) #打印结果
+print('\n The existing templates pool contains these Classes: \n ', s) #display the result
 
 
 def match_templates(questions):
