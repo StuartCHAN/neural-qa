@@ -9,21 +9,23 @@ import csv
 import pickle
 import os
 
-path = "../data" #文件夹目录
-files= os.listdir(path) #得到文件夹下的所有文件名称
+path = "../data/Bank" #the Bank directory
+files= os.listdir(path) #to get all the files/folders names in the dir
 templates_pool = []
-for file in files: #遍历文件夹
-     if os.path.isdir(path+"/"+file): #判断是否是文件夹，不是文件夹才打开
-          templates_pool.append(file) #每个文件的文本存到list中
+for file in files: #iterate to get the folders
+     if os.path.isdir(path+"/"+file): # whether a folder 
+          templates_pool.append(file) #get the folder into the templates_pool list
 print('\n The existing templates pool contains these Classes: \n ', s) #打印结果
 
 
-def match_templates(questions, templates, template_queries):
-    texts_processed, BASE_VECTORS = sentence_encoder.get_data(templates)
+def match_templates(questions):
+    #texts_processed, BASE_VECTORS = sentence_encoder.get_data(templates)
     matched_proba_scores = []
     matched_templates = []
-    matched_template_index = []
-    for question in questions:
+    #matched_template_index = []
+    class_pool = distribute_class(questions)
+    for question, clas in zip(questions, class_pool):
+        BASE_VECTORS, template_queries, template_questions, csvFile = distribute_class(clas)
         matched = sentence_encoder.semantic_search(question, template_queries, BASE_VECTORS)
         matched_proba_score = matched[0]
         matched_template = matched[1]
@@ -43,7 +45,8 @@ def distribute_class(questions):
                 clas = annotated[k]['Schema']
                 class_pool.append(clas)
             except:
-                pass;
+                clas = annotated[k]['DBpedia'][0]
+                class_pool.append(clas)
     return class_pool
 
 
