@@ -22,7 +22,7 @@ def match_templates(questions):
     #texts_processed, BASE_VECTORS = sentence_encoder.get_data(templates)
     matched_proba_scores = []
     matched_templates = []
-    #matched_template_index = []
+    matched_template_index = []
     class_pool = distribute_class(questions)
     for question, clas in zip(questions, class_pool):
         BASE_VECTORS, template_queries, template_questions, csvFile = distribute_class(clas)
@@ -33,6 +33,10 @@ def match_templates(questions):
         matched_proba_scores.append(matched_proba_score)
         matched_templates.append(matched_template)
         matched_template_index.append(matched_template_idx)
+        matched_query = template_queries[matched_template_idx]
+        writer = csv.writer(csvFile)
+        writer.writerow('dbo:'+clas+';;;'+ question +';'+ matched_query )
+        csvFile.close()
     return  matched_proba_scores, matched_templates, matched_template_index ;
 
         
