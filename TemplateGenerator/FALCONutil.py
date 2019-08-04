@@ -37,6 +37,8 @@ import gensim
 import spacy
 
 import annotation
+from properties_processor import property_process
+
 
 nlp = spacy.load('en_core_web_md')  # make sure to use larger model!
 tokens = nlp(u'dog cat banana') 
@@ -92,9 +94,15 @@ def make_template(sentence):
     for entity in entities:
         spolight_pool[str(entity[-1]).lower()] = replacement(entity[0])
     
-    pool = set()
-   #for 
-    
+    pool = {}
+    overlapping_phrases = list(set(falcon_pool.keys() ).intersection(set(spolight_pool.keys() )))
+    for key in overlapping_phrases:
+        flc = property_process(falcon_pool[key] )
+        spl = property_process(spolight_pool[key] )
+        sim_flc = nlp(key).similarity(flc)
+        sim_spl = nlp(key).similarity(spl)
+        pool[key] = spolight_pool[key] if (sim_flc < sim_spl) else falcon_pool[key] 
+            
     new_q = str(sentence).strip().lower()
     
     for key in annotateds.keys():
