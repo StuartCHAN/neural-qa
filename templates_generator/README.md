@@ -46,10 +46,10 @@ The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-st
 This [sentence_encoder.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/vec_utils/sentence_encoder.py) is the implementation of Universal Sentence Encoder which show efficiency in semantic sentences matching, it helps to match whether there is an existing correspondent template for the new question that we have.
 
 ### 5. If the matching similarity score can not pass the treshold, the questions go to the query composing part 
- 
 To use the pipeline, please run the [templates_generate_main.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/templates_generate_main.py) after the step 1 above,
 
 ```bash
 python templates_generate_main.py --dbo_class=$DBO_CLASS  --temps_fpath=$EXISTING_TEMPLATES_FILE_PATH  --text_fpath=$TEXT_FILE_PATH  --ntriple_fpath=$NTRIPLES_FILE_PATH  --train_vec=$WHETHER_TO_TRAIN_THE_VECTOR  --vecpath=$FILE_PATH_THAT_SAVES_VECTORS   --temp_save_path=$FILE_PATH_SAVING_RESULTS 
 ```
 
+which will automaticall initiate the pipeline.
