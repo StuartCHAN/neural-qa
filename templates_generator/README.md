@@ -1,6 +1,6 @@
 # Templates Generator – Neural SPARQL Machines
 
-This the templates generation component for the Neural SPARQL Machines in the [2019 GSoC project](https://github.com/StuartCHAN/neural-qa), which aims to automatically generate templates from the article extracted from the Wikipedia pages.
+This the templates generation component for the [Neural SPARQL Machines](https://github.com/StuartCHAN/neural-qa) in the [2019 GSoC project](https://stuartjchan.online/), which aims to automatically generate templates from the article extracted from the Wikipedia pages.
 
 <br>
 
