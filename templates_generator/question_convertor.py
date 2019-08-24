@@ -3,6 +3,8 @@ import pandas as pd
 
 import nltk
 
+#import spacy
+
 import semantic_parser 
 
  
@@ -49,6 +51,39 @@ def convert(sentence, triple):
     question = str(' ').join([t[0] for t in tagged if "#" not in t ])
     question = question.replace("$", "<A>")
     return question
+
+
+
+def distill(predicate, triple ):
+    try:
+        classes = semantic_parser.get_supper_class(triple)
+        if any(["<http://www.w3.org/2001/XMLSchema#date>"in clas for clas in classes ]):
+            interogative = "when"     
+        elif "Person" in classes:
+            interogative = "who"
+        elif "Place"in classes or "Monument"in classes:
+            interogative = "where"
+        else:
+            interogative = "what";
+    except:
+        interogative = "what";
+    
+    try:
+        pos = str(nltk.pos_tag(predicate)[-1])
+        if pos.startswith("A"):
+            question = interogative + " <A> is " +predicate +" ?"  
+        elif pos.startswith("N"):
+            question = interogative + " is the "+ predicate +" of <A> ?" 
+        else:
+            question = interogative + " is the "+ predicate +" of <A> ?" ;
+    except:
+        question = interogative + " is the "+ predicate +" of <A> ?" ;
+        
+    print("\n The question is: ", question)
+    return question
+    
+
+
 
 
 """

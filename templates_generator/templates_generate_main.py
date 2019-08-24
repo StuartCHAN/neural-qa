@@ -63,7 +63,8 @@ if __name__ == "__main__":
     
     print("\n The sentences filtering process starts: ")
 
-    collected_set = sentences_filter.sentence_filtering(text_fpath, ntriple_fpath);
+    #collected_set = sentences_filter.sentence_filtering(text_fpath, ntriple_fpath);
+    collected_set = sentences_filter.sentence_distill(text_fpath, ntriple_fpath);
 
     print(" the collected set is: \n")
     _ = [print("for %(i)d th sent: %(sent)s "%{"i":i, "sent":sent }) for i, sent in enumerate(collected_set) ]
@@ -78,6 +79,7 @@ if __name__ == "__main__":
             ntriples = str(ntriple).strip('.').split()
             triple = ntriples[-1]
             question = question_convertor.convert(sentence, triple)
+            #question = question_convertor.distill(predicate, triple )
             print("\n question: ", question)
             matched = sentence_encoder.semantic_search(question, template_queries, BASE_VECTORS)
             matched_proba_score = matched[0]

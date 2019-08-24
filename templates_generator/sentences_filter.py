@@ -13,6 +13,7 @@ nlp = spacy.load('en_core_web_sm')
 neuralcoref.add_to_pipe(nlp)
 import paraphraser
 import collections
+import question_convertor 
 
 
 
@@ -161,16 +162,21 @@ def sentence_filtering(text_fpath, ntriple_fpath):
                         pass;
                     if ' '+pred+' ' in tx:
                         tx = str(tx).replace(' '+pred+' ', ' <'+pred+'> ')
+                        predicate = pred
                     else:
                         for paraphrase in paraphrases:
                             if paraphrase in tx:
                                 tx = str(tx).replace(paraphrase, '<'+paraphrase+'>')
+                                predicate = paraphrase
                                 break;
 
                     tx = placeholdAny(tx, subject_coref)
                     
                     tx = str(' ').join([ part for part in tx.split(',') if '<' in part and '>' in part ])
                     tx = str(tx).replace(',',' ') 
+
+                    question_convertor.distill(predicate, triple )
+
                     try:
                         collected_pool_.append( str(' , ').join([tx, ntrpl]) )
                         print("\n * the text collected is: ",tx)
@@ -185,6 +191,84 @@ def sentence_filtering(text_fpath, ntriple_fpath):
     with open(savepath, 'w', encoding='UTF-8') as save:
         for collected in collected_set_:
             save.write(collected+'\n')
-    return collected_set_ ;        
+    return collected_set_ ;      
+
+
+        
+def sentence_distill(text_fpath, ntriple_fpath):  
+    
+    ntriple, triples = prepare_rdf(ntriple_fpath)
+
+    print("\n Ntriples: ", ntriple)
+
+    print("\n Triples: ", triples)
+    
+    text = open(text_fpath, 'r', encoding='UTF-8' ).read()
+    
+    text_segmented = [ str(sent.text).strip().lower()  for sent in nlp(text).sents if (sent.text != '' and sent.text != '\n' and sent.text != ' ') ] 
+    
+    print("\n text segmented: ", text_segmented )
+
+    topic = str(str(ntriple_fpath).split('/')[-1]).replace('.ntriples','').strip() 
+    print("\n topic: ", topic )
+
+    subject_coref = get_subject_coref(text, topic)
+
+    print("\n subject_coref: ", subject_coref )
+            
+    length = int(np.mean([len(sentence.split()) for sentence in text_segmented]))
+
+    print("\n The treshold length is: ", length)
+
+    collected_pool_ = [ ] 
+    text_segmented_ = list(text_segmented)
+    for triple, ntrpl in zip(triples, ntriple[5:]) :
+        for txt in range(0, len(text_segmented_)):         
+            tx = text_segmented_[txt]
+            if len(str(tx).split()) <= length:                
+                tx =str().join( [t for t in unidecode.unidecode(str(tx).lower().replace('\n', '') ) if t not in string.punctuation or t == ',' ])
+                tx = str(tx).replace(',',' ,')                 
+                tx = ' '+tx+' '
+                trpl = triple[2]
+                pred = triple[1]
+                paraphrases = []            
+                try:
+                    paraphras = paraphraser.paraphrase(pred)
+                    paraphrases.extend(paraphras)
+                except:
+                    paraphrases.append(pred)
+                    pass;            
+                  
+                if ((triple[0] != triple[-1])and(trpl != '')and(tx != '')and(pred != '')) and( (' '+trpl+' 'in tx) or containsAny(tx, paraphrases) )and containsAny(str(tx), subject_coref) : 
+                    try:
+                        for paraphrase in paraphrases:
+                            if paraphrase in tx:
+                                tx = str(tx).replace(paraphrase, '<'+paraphrase+'>')
+                                predicate = paraphrase
+                                break;
+                    except:
+                        predicate = pred
+                    
+                    obeject = str(ntrpl).strip('.').split()[-1]
+                    question = question_convertor.distill(predicate, obeject )
+
+                    try:
+                        collected_pool_.append( str(' , ').join([question, ntrpl]) )
+                        print("\n * the text collected is: ",tx)
+                    except:
+                        pass;
+                    text_segmented_.remove(text_segmented_[txt])
+                    break;
+                          
+    collected_set_ = list(set(collected_pool_))
+    collected_set_.sort(key=collected_pool_.index)
+    savepath = ntriple_fpath+'.csv' 
+    with open(savepath, 'w', encoding='UTF-8') as save:
+        for collected in collected_set_:
+            save.write(collected+'\n')
+    return collected_set_ ;      
+
+
+
             
             
