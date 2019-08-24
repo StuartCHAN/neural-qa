@@ -78,8 +78,8 @@ if __name__ == "__main__":
             ntriple = item.split(",")[-1]
             ntriples = str(ntriple).strip('.').split()
             triple = ntriples[-1]
-            question = question_convertor.convert(sentence, triple)
-            #question = question_convertor.distill(predicate, triple )
+            #question = question_convertor.convert(sentence, triple)
+            question = sentence 
             print("\n question: ", question)
             matched = sentence_encoder.semantic_search(question, template_queries, BASE_VECTORS)
             matched_proba_score = matched[0]
