@@ -1,0 +1,14 @@
+dbo:Person;;;what did <A> die from?;select distinct ?uri where { <A> dbo:deathCause ?uri . };select distinct ?a where {  ?a dbo:deathCause ?uri .  };
+dbo:Person;;;when did <A> die?;select distinct ?d where { <A> dbo:deathDate ?d . };select distinct ?a where {  ?a dbo:deathDate ?d .  };
+dbo:Person;;;where is <A> buried?;select distinct ?uri where { <A> dbo:restingPlace ?uri . };select distinct ?a where {  ?a dbo:restingPlace ?uri .  };
+dbo:Person;;;where was <A> born?;select distinct ?uri where { <A> dbo:birthPlace ?uri . };select distinct ?a where {  ?a dbo:birthPlace ?uri .  };
+dbo:Person;;;which country was <A> born in?;select distinct ?uri where { <A> dbo:birthPlace ?x . ?x dbo:country ?uri . };select distinct ?a where {  ?a dbo:birthPlace ?x . ?x dbo:country ?uri .  };
+dbo:Person;;;who are the parents of the wife of <A>?;select distinct ?uri where { <A> dbo:spouse ?x . ?x dbo:parent ?uri . };select distinct ?a where {  ?a dbo:spouse ?x . ?x dbo:parent ?uri .  };
+dbo:Person;;;who is the daughter of <A> married to?;select distinct ?uri where {<A> dbo:child ?child . ?child dbo:spouse ?uri . };select distinct ?a where { ?a dbo:child ?child . ?child dbo:spouse ?uri .  };
+dbo:Person;;;who is the oldest child of <A>?;select distinct ?uri where { <A> dbo:child ?uri . ?uri dbo:birthDate ?d . } order by asc(?d) offset 0 limit 1;select distinct ?a where {  ?a dbo:child ?uri . ?uri dbo:birthDate ?d .  };
+dbo:Person;;;who was married to <A>?;select distinct ?uri where { <A> dbo:spouse ?uri . };select distinct ?a where {  ?a dbo:spouse ?uri .  };
+dbo:Person;;;who was the father of <A>?;select distinct ?uri where { <A> dbp:father ?uri . };select distinct ?a where {  ?a dbp:father ?uri .  };
+dbo:Person;;;who was the wife of <A>?;select distinct ?uri where { <A> dbo:spouse ?uri. };select distinct ?a where {  ?a dbo:spouse ?uri.  };
+dbo:Person;;;who were the parents of <A>?;select distinct ?uri where { <A> dbo:parent ?uri . };select distinct ?a where {  ?a dbo:parent ?uri .  };
+dbo:Person;;;whom did <A> marry?;select distinct ?uri where { ?uri dbo:spouse <A> . };select distinct ?a where {  ?uri dbo:spouse ?a .  };
+dbo:Person;;;who was the successor of <A>?;select distinct ?uri where { <A> dbo:successor ?uri . };select distinct ?a where {  ?a dbo:successor ?uri .  };
