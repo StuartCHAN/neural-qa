@@ -56,3 +56,51 @@ which will automaticall initiate the pipeline.
 
 <br>
 <br>
+
+## Instruction
+
+### 1. for extracting the articles from the Wikipedia pages:
+
+We use the [questions_generate_main.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/questions_generate_main.py) to work as the entry of the program, which generates the raw materials for building the questions and save them categorically in place. 
+
+It has the parametre below:
+
+```python
+--dbo_class
+```
+
+For example,
+we can set the `--dbo_class=Person` then we can run the script like:
+
+```bash
+python questions_generate_main.py --dbo_class=Person
+```
+
+then the program will automatically make a directory `Bank\DBresourses\$dbo_class`that we call the templates bank under the `neural-qa\data\` path. In the folder, eache fetched entity will get its own folder containing its article text file, the structure look like:
+
+```bash
+neural-qa\data\Bank\DBresourses\$dbo_class
+    --dbr_person0
+        --dbr_person0.txt
+    --dbr_person1
+        --dbr_person1.txt 
+    --dbr_person2
+        --dbr_person2.txt
+    ...   
+```
+
+### 2. for extracting the articles from the Wikipedia pages:
+
+Then to begin the generation of templates by [templates_generate_main.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/templates_generate_main.py), we need the material prepared in last step, the text file, 
+also if we want to employ the universal sentence encoder to match the newly generated templates towards the existing ones, 
+a templateset about the same DBpedia ontology topic, 
+e.g. `annoattions_Person.csv` for the `dbr_Barack_Obama` is needed:
+
+We can set whether to train a new universal sentence encoder verctorbase or not 
+by setting the parameter `--train_vec` which has default as `False`,
+
+then if we set it `True` and the templateset exists,
+the system will save a vectorbase for it for further usage.
+
+
+
