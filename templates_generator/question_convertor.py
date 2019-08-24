@@ -6,9 +6,9 @@ import nltk
 import semantic_parser 
 
  
-sentence = " nine months later <A> was named the 2009 <B> laureate  ?"
+#sentence = " nine months later <A> was named the 2009 <B> laureate  ?"
 
-triple = "<http://dbpedia.org/resource/Albert_Einstein>"
+#triple = "<http://dbpedia.org/resource/Albert_Einstein>"
 
 
 def convert(sentence, triple):
@@ -24,15 +24,18 @@ def convert(sentence, triple):
     tokens = nltk.word_tokenize(sentence)
     tagged = nltk.pos_tag(tokens)
     
-    classes = semantic_parser.get_supper_class(triple)
-    #v =any(["<http://www.w3.org/2001/XMLSchema#date>"in clas for clas in classes ])
-    if any(["<http://www.w3.org/2001/XMLSchema#date>"in clas for clas in classes ]):
-       interogative = "when"     
-    elif "Person" in classes:
-        interogative = "who"
-    elif "Place"in classes or "Monument"in classes:
-        interogative = "where"
-    else:
+    try:
+        classes = semantic_parser.get_supper_class(triple)
+        #v =any(["<http://www.w3.org/2001/XMLSchema#date>"in clas for clas in classes ])
+        if any(["<http://www.w3.org/2001/XMLSchema#date>"in clas for clas in classes ]):
+            interogative = "when"     
+        elif "Person" in classes:
+            interogative = "who"
+        elif "Place"in classes or "Monument"in classes:
+            interogative = "where"
+        else:
+            interogative = "what";
+    except:
         interogative = "what";
         
     auxiliary_verbs = [i for i, w in enumerate(tagged) if w[1] == 'V']

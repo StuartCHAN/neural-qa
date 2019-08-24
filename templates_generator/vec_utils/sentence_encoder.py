@@ -89,7 +89,9 @@ def get_data(texts, path):
       U_sent2vec[id]=vec    
     print("\nThe U_sent2vec length is: ", len(U_sent2vec) )  
     #save universal sentence encoded features of tweets into pkl obj      
-    pickle.dump( U_sent2vec, open( "../data/dataset/"+ path+"/USent2vec.pkl", "wb" ) )
+    #pickle.dump( U_sent2vec, open( "../data/dataset/"+ path+"/USent2vec.pkl", "wb" ) )
+    pickle.dump( U_sent2vec, open( path, "wb" ) )
+    print("\n Vectors saved. ")
     return BASE_VECTORS ;
 
 

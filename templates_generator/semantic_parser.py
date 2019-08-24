@@ -200,7 +200,7 @@ def get_supper_class(dbr_link):
     
 
 def get_all_instances(dbo_name):
-    dbo_name = "Person"
+    # e.g. dbo_name = "Person"
     query = str(instances_query)%dbo_name   
     sparql = SPARQLWrapper("http://dbpedia.org/sparql")
     sparql.setQuery(query)
@@ -208,6 +208,7 @@ def get_all_instances(dbo_name):
     results = sparql.query().convert()
     bindings = results["results"]["bindings"]
     instances = [str(binding["all"]["value"]).split("/")[-1] for binding in bindings ]
+    print('\n ', dbo_name, ' ---> ', instances, '\n ')
     return instances
     
     
