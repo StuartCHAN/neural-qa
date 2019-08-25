@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
-
 import nltk
-
 #import spacy
-
 import semantic_parser 
-
- 
-#sentence = " nine months later <A> was named the 2009 <B> laureate  ?"
-
-#triple = "<http://dbpedia.org/resource/Albert_Einstein>"
-
+"""
+ This script is to convert the sentences extrated from the pages after preprocessiing into interogative questions:
+ For example,
+   sentence = " nine months later <A> was named the 2009 <B> laureate  ?"
+   triple = "<http://dbpedia.org/resource/Albert_Einstein>"
+"""
 
 def convert(sentence, triple):
+    """This is to convert the sentence by POS-tagging:
+    """
     text = []
     for s in str(sentence).split():
         if ('<' not in s and '>' not in s and s != "<A>"):
@@ -24,8 +23,7 @@ def convert(sentence, triple):
             text.append('#');
     sentence = str(' ').join(text)
     tokens = nltk.word_tokenize(sentence)
-    tagged = nltk.pos_tag(tokens)
-    
+    tagged = nltk.pos_tag(tokens)   
     try:
         classes = semantic_parser.get_supper_class(triple)
         #v =any(["<http://www.w3.org/2001/XMLSchema#date>"in clas for clas in classes ])
@@ -38,8 +36,7 @@ def convert(sentence, triple):
         else:
             interogative = "what";
     except:
-        interogative = "what";
-        
+        interogative = "what";        
     auxiliary_verbs = [i for i, w in enumerate(tagged) if w[1] == 'V']
     if auxiliary_verbs:
         tagged.insert(0, tagged.pop(auxiliary_verbs[0]))
@@ -53,8 +50,9 @@ def convert(sentence, triple):
     return question
 
 
-
 def distill(predicate, triple ): 
+    """This is to convert the sentences to interogative form by making use of the syntactic structure and the RDF:
+    """
     try:  
         classes = semantic_parser.get_supper_class(triple)
         if any(["<http://www.w3.org/2001/XMLSchema#date>"in clas for clas in classes ]):
@@ -67,7 +65,6 @@ def distill(predicate, triple ):
             interogative = "what";
     except:
         interogative = "which";
-
     pos = str(nltk.pos_tag(predicate)[-1])
     if pos == "ADJ" :
         question = interogative + " <A> is " +predicate +" ?" 
@@ -85,28 +82,5 @@ def distill(predicate, triple ):
         question = interogative + " is the "+ predicate +" of <A> ?" 
         print("\n The question is: ", question)
         return question 
-    #else:
-    #    question = interogative + " is the "+ predicate +" of <A> ?" ;
     
-    
-    
-
-
-
-
-"""
-
-sentences = open('../data/Bank/Person/Barack_Obama/Barack_Obama.csv','r', encoding='UTF-8').readlines()
- 
-with open('./data/Bank/Person/Barack_Obama/new/Statue_of_Liberty.filtered.theta.templates.csv','a', encoding='UTF-8') as templateset:
-    for row in pd.read_csv('./data/Bank/Person/Barack_Obama/new/Statue_of_Liberty.filtered.theta.questions.csv').iterrows():
-        try:
-            item = list(row[-1])
-            sentence = item[0]
-            triple = str(item[-1]).split()[-2]
-            template = convert(sentence, triple)
-            templateset.write(str(" , ").join([template, triple])+'\n')
-        except:
-            pass;
-"""        
         

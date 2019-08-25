@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-
+This is for extracting the ntriples file from the DBpedia entity page:
 """
 import requests
 

@@ -1,23 +1,22 @@
 #!/usr/bin/env python
 # coding: utf-8
-
 import requests
 #import datetime
 import json
 import xmltodict
-
 import semantic_parser
 
-
-'''
-curl http://api.dbpedia-spotlight.org/en/annotate  --data-urlencode "text=President Obama"  --data "confidence=0.35" -H "Accept: application/json"  
+'''This is the script to implement the curl command below 
+to accomplish the functions related to DBpedia Spotlight API:
+    curl http://api.dbpedia-spotlight.org/en/annotate  --data-urlencode "text=President Obama"  --data "confidence=0.35" -H "Accept: application/json"  
 '''
 
 def searchLookup(word):
+    """To implement the DBpedia Lookup API:
+    """
     #r = requests.get('http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryClass=place&QueryString=berlin', stream=True)
     query = 'http://lookup.dbpedia.org/api/search.asmx/PrefixSearch?QueryClass=&MaxHits=5&QueryString=%s'%word
-    r = requests.get(query, stream=True)    
-    
+    r = requests.get(query, stream=True)       
     text =  r.text
     t = text.encode("utf-8")
     xmldict = xmltodict.parse(t)
@@ -27,10 +26,12 @@ def searchLookup(word):
 
 
 def spotlight(text):
+    """To implement the DBpedia Spotlight API:
+    """
     headers = {
         'Accept': 'application/json',
     }
-    #text = "What is a car?" "enitenziagite" #"President Obama"
+    #e.g. text = "What is a car?" "enitenziagite" #"President Obama"
     data = {
     "text":text ,
     'confidence': '0.35'
@@ -41,6 +42,8 @@ def spotlight(text):
 
 
 def annotate(text):
+    """To implement the DBpedia Spotlight annoatation function:
+    """
     response_json = spotlight(text)
     if "Resources" in response_json.keys():
         resources = response_json["Resources"]
@@ -48,10 +51,9 @@ def annotate(text):
         for resource in resources:
             surfaceForm = resource["@surfaceForm"]
             uri = resource["@URI"]
-            ref = uri.replace("http://dbpedia.org/resource/", 'dbr:')#
+            ref = uri.replace("http://dbpedia.org/resource/", 'dbr:')
             ref = ref.replace("http://dbpedia.org/ontology/", 'dbo:')
-            ref = ref.replace("http://dbpedia.org/property/", 'dbp:')
-            
+            ref = ref.replace("http://dbpedia.org/property/", 'dbp:')            
             types = resource["@types"]
             t = ''
             db = []
@@ -98,10 +100,8 @@ def getTemplate(text):
     return temp, schemas, variables ;
  
     
-
 quest = ['am','is','are','was','were','be','do','did','does','have','has','had','can','could','shall','should','will','would']
 Interrogative = ['what','who','which','whose', 'whom','when', 'where', 'why', 'how']
-
 
     
 def get_header(question):
@@ -112,11 +112,3 @@ def get_header(question):
         head = True;
     return head
     
-
-
-quest = "which television show were created by joe austen?"
-
-# which <dbo:transmission> were <dbo:author> by <dbo:pastor> <dbo:mass>?
-
-anno = annotate(quest)
-spl = spotlight(quest)

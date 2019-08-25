@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
+"""This is the script to do the RDF filtering through the sentences from the Wikipedia page articles.
 """
-
-"""
-
 import pandas as pd
 import numpy as np
 import string
@@ -16,7 +14,7 @@ import collections
 import question_convertor 
 
 
-
+# to do the preprocesing:
 def preprocess(strin ):
     if "#" in strin:
         strin = str(strin).split("#")[-1]
@@ -28,7 +26,7 @@ def preprocess(strin ):
     stri =str().join( [s  if s in string.ascii_lowercase else " "+str(s).lower() for s in strin])
     return stri;
  
-
+# to get the dbpedia entity url out of the link format:
 def refine(dblink):
     dblink = str(dblink).replace('http://dbpedia.org/ontology/','')
     dblink = str(dblink).replace('http://dbpedia.org/property/','')
@@ -52,21 +50,14 @@ def refine(dblink):
     return dblink;
 
 
-#bank = '../data/Bank/'
-#clas = 'Person'
-#dbr = 'Barack_Obama'
-
+# to load the RDF ntriple files:
 def prepare_rdf(ntriple_fpath):
     ntriple =[str(ntrpl).strip().replace('\n', '') for ntrpl in open(ntriple_fpath, 'r', encoding='UTF-8' ).readlines() if ('@' not in ntrpl)and("http://www.w3.org/" not in ntrpl ) ]   
     triples = [[refine(link) for link in str(triple).split() if ((link not in string.punctuation) and (link != '') and (link != ' ')) ] for triple in ntriple[5:] ]    
     triples = [ (triple[0], triple[1], str(' ').join(triple[2:]) ) for triple in triples]
     return ntriple, triples 
 
-#text = open('../data/Bank/Person/Audrey_Hepburn/Audrey_Hepburn.txt', 'r', encoding='UTF-8' ).read()
-
-#text_segmented = [ str(sent.text).strip().lower()  for sent in nlp(text).sents if (sent.text != '' and sent.text != '\n' and sent.text != ' ') ] 
-
-
+# to get the subject of the neural correference resolution:
 def get_subject_coref(text, topic): 
     topic = str(topic).replace("_", " ")
     doc = nlp(str(text).replace('\n', ' '))
@@ -78,16 +69,13 @@ def get_subject_coref(text, topic):
         if topic in coref:
             _ = [ coreflist.append(ref) for ref in coref if len(ref)<=len(topic)]
     coreflist = list(set(coreflist))
- 
     subject_coref = [ str().join([e if e not in string.punctuation else ' ' for e in str(s).strip().lower()]).strip() for s in coreflist ]
     subject_coref = list(set(subject_coref))
     return subject_coref 
 
-       
-
-
+# to check whether the sentence contains any elements of the list:       
 def containsAny(sentence, seq):
-    #return True if any(' '+i+' ' in sentence for i in seq) else False
+    #e.g. return True if any(' '+i+' ' in sentence for i in seq) else False
     n = 0
     for i in seq:
         if ' '+i+' ' in sentence:
@@ -107,102 +95,11 @@ def placeholdAny(sentence, seq):
     else:
         return sentence;
     
-
- 
-##########################################################
-        
-def sentence_filtering(text_fpath, ntriple_fpath):  
-    
+       
+def sentence_distill(text_fpath, ntriple_fpath):     
     ntriple, triples = prepare_rdf(ntriple_fpath)
-
     print("\n Ntriples: ", ntriple)
-
-    print("\n Triples: ", triples)
-    
-    text = open(text_fpath, 'r', encoding='UTF-8' ).read()
-    
-    text_segmented = [ str(sent.text).strip().lower()  for sent in nlp(text).sents if (sent.text != '' and sent.text != '\n' and sent.text != ' ') ] 
-    
-    print("\n text segmented: ", text_segmented )
-
-    topic = str(str(ntriple_fpath).split('/')[-1]).replace('.ntriples','').strip() 
-    print("\n topic: ", topic )
-
-    subject_coref = get_subject_coref(text, topic)
-
-    print("\n subject_coref: ", subject_coref )
-            
-    length = int(np.mean([len(sentence.split()) for sentence in text_segmented]))
-
-    print("\n The treshold length is: ", length)
-
-    collected_pool_ = [ ] 
-    text_segmented_ = list(text_segmented)
-    for triple, ntrpl in zip(triples, ntriple[5:]) :
-        for txt in range(0, len(text_segmented_)):         
-            tx = text_segmented_[txt]
-            if len(str(tx).split()) <= length:                
-                tx =str().join( [t for t in unidecode.unidecode(str(tx).lower().replace('\n', '') ) if t not in string.punctuation or t == ',' ])
-                tx = str(tx).replace(',',' ,')                 
-                tx = ' '+tx+' '
-                trpl = triple[2]
-                pred = triple[1]
-                paraphrases = []            
-                try:
-                    paraphras = paraphraser.paraphrase(pred)
-                    paraphrases.extend(paraphras)     
-                except:
-                    paraphrases.append(pred)
-                    pass;            
-                  
-                if ((triple[0] != triple[-1])and(trpl != '')and(tx != '')and(pred != '')) and( (' '+trpl+' 'in tx) or containsAny(tx, paraphrases) )and containsAny(str(tx), subject_coref) : 
-                    try:
-                        tx = str(tx).replace(trpl, '<'+trpl+'>')
-                    except:
-                        pass;
-                    if ' '+pred+' ' in tx:
-                        tx = str(tx).replace(' '+pred+' ', ' <'+pred+'> ')
-                        predicate = pred
-                    else:
-                        for paraphrase in paraphrases:
-                            if paraphrase in tx:
-                                tx = str(tx).replace(paraphrase, '<'+paraphrase+'>')
-                                predicate = paraphrase
-                                break;
-
-                    tx = placeholdAny(tx, subject_coref)
-                    
-                    tx = str(' ').join([ part for part in tx.split(',') if '<' in part and '>' in part ])
-                    tx = str(tx).replace(',',' ') 
-
-                    question_convertor.distill(predicate, triple )
-
-                    try:
-                        collected_pool_.append( str(' , ').join([tx, ntrpl]) )
-                        print("\n * the text collected is: ",tx)
-                    except:
-                        pass;
-                    text_segmented_.remove(text_segmented_[txt])
-                    break;
-                          
-    collected_set_ = list(set(collected_pool_))
-    collected_set_.sort(key=collected_pool_.index)
-    savepath = ntriple_fpath+'.csv' 
-    with open(savepath, 'w', encoding='UTF-8') as save:
-        for collected in collected_set_:
-            save.write(collected+'\n')
-    return collected_set_ ;      
-
-
-        
-def sentence_distill(text_fpath, ntriple_fpath):  
-    
-    ntriple, triples = prepare_rdf(ntriple_fpath)
-
-    print("\n Ntriples: ", ntriple)
-
-    print("\n Triples: ", triples)
-    
+    print("\n Triples: ", triples)    
     text = open(text_fpath, 'r', encoding='UTF-8' ).read()
     
     text_segmented = [ str(sent.text).strip().lower()  for sent in nlp(text).sents if (sent.text != '' and sent.text != '\n' and sent.text != ' ') ] 
@@ -251,7 +148,7 @@ def sentence_distill(text_fpath, ntriple_fpath):
                                 break;
                     except:
                         pass;
-                        
+
                     if predicate is not None :
                         obeject = str(ntrpl).strip('.').split()[-1]
                         question = question_convertor.distill(predicate, obeject )

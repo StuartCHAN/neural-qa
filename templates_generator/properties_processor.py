@@ -4,7 +4,6 @@ Created on Wed Jul 10 12:21:50 2019
 
 @author: Lenovo
 """
-
 import numpy as np
 import string
 import gensim
@@ -31,7 +30,6 @@ def property_process(strin ):
         strin = str(strin).split(":")[-1]
     stri =str().join( [s  if s in string.ascii_lowercase else " "+str(s).lower() for s in strin])
     return stri;
-
 
 
 # This is the function to compare the similarity between a phrase and a list of strings of the properties
@@ -61,7 +59,7 @@ def get_most_similar(phrase, strins_list):
     sims = [strin for strin in scores_map.keys() if max_score==scores_map[strin] ]
     print(sims)
     return sims ;
-    
+
 
 # This is the pipeline for all the functions above:
 class properties_processor:
@@ -77,22 +75,4 @@ class properties_processor:
         print(" ----> ",sim_properti)
         return sim_properti
         
-
-
-    
-
-
-
-
-if __name__ == "__main__":
-
-    word2vec_output_file = './data/glove2wordvec/word2vec.6B.300d.txt'
-       
-    dbr = "Barack_Obama"
-    
-    phrase = "wife"
-    
-    processor = properties_processor(word2vec_output_file)
-    
-    sim_properties = processor.process(dbr, phrase)
 
