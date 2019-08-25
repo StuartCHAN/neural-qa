@@ -175,8 +175,11 @@ def generate_dataset(templates, output_dir, file_mode):
             try:
                 results = get_results_of_generator_query(cache, template)
                 bindings = extract_bindings(results["results"]["bindings"], template)
+                if bindings is not None:
+                    print("   *************************************************    ")
+                    print("\nwhat are those bindings:",bindings)
                 # print bindings
-                if bindings is None:
+                if bindings is None:    
                     id_or_question = getattr(template, 'id') or getattr(template, 'question')
                     logging.debug("no data for {}".format(id_or_question))
                     not_instanced_templates.update([id_or_question])
@@ -225,7 +228,10 @@ def get_results_of_generator_query( cache, template ):
             results = cache[query]
             break
         logging.debug('{}. attempt generator_query: {}'.format(attempt, query))
+        print("\nquery is what ?  ", type(query))
+        print("query looks like?  ", query)
         results = query_dbpedia(query)
+        print("This is what we want to look: ", results)
         sufficient_examples = len(results["results"]["bindings"]) >= EXAMPLES_PER_TEMPLATE/3
         if sufficient_examples:
             cache[query] = results
