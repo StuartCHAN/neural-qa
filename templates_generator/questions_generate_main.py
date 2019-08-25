@@ -11,6 +11,7 @@ from semantic_parser import get_all_instances
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument('--dbo_class', type=str, default = None)
+parser.add_argument('--dbr_entity', type=str, default = None)
 args = parser.parse_args()
 
 
@@ -18,8 +19,13 @@ args = parser.parse_args()
 
 if __name__ == "__main__":
     
-    dbo_class = args.dbo_class 
-    instances = get_all_instances(dbo_class)
+    dbo_class = args.dbo_class
+    dbr_entity = args.dbr_entity 
+    if dbr_entity is not None:
+        instances = [ str(dbr_entity).strip() ] 
+    elif dbo_class is not None:
+        instances = get_all_instances(dbo_class)
+        
     if (instances is not None) and ( len(instances)>=1 ):
         print("\n Begin to get the instances: ")
         #for instance in instances[:3]:
