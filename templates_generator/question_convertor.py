@@ -54,33 +54,41 @@ def convert(sentence, triple):
 
 
 
-def distill(predicate, triple ):
-    try:
+def distill(predicate, triple ): 
+    try:  
         classes = semantic_parser.get_supper_class(triple)
         if any(["<http://www.w3.org/2001/XMLSchema#date>"in clas for clas in classes ]):
             interogative = "when"     
-        elif "Person" in classes:
+        elif "Person" in classes or "Politician" in classes or "Artist" in classes:
             interogative = "who"
         elif "Place"in classes or "Monument"in classes:
             interogative = "where"
         else:
             interogative = "what";
     except:
-        interogative = "what";
+        interogative = "which";
+
+    pos = str(nltk.pos_tag(predicate)[-1])
+    if pos == "ADJ" :
+        question = interogative + " <A> is " +predicate +" ?" 
+        print("\n The question is: ", question)
+        return question
+    elif pos.startswith("N"):
+        question = interogative + " is the "+ predicate +" of <A> ?" 
+        print("\n The question is: ", question)
+        return question
+    elif pos.startswith("V"):
+        question = interogative + " <A> "+ predicate +" ?" 
+        print("\n The question is: ", question)
+        return question
+    else:
+        question = interogative + " is the "+ predicate +" of <A> ?" 
+        print("\n The question is: ", question)
+        return question 
+    #else:
+    #    question = interogative + " is the "+ predicate +" of <A> ?" ;
     
-    try:
-        pos = str(nltk.pos_tag(predicate)[-1])
-        if pos.startswith("A"):
-            question = interogative + " <A> is " +predicate +" ?"  
-        elif pos.startswith("N"):
-            question = interogative + " is the "+ predicate +" of <A> ?" 
-        else:
-            question = interogative + " is the "+ predicate +" of <A> ?" ;
-    except:
-        question = interogative + " is the "+ predicate +" of <A> ?" ;
-        
-    print("\n The question is: ", question)
-    return question
+    
     
 
 

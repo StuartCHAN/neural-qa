@@ -57,7 +57,7 @@ def refine(dblink):
 #dbr = 'Barack_Obama'
 
 def prepare_rdf(ntriple_fpath):
-    ntriple =[str(ntrpl).strip().replace('\n', '') for ntrpl in open(ntriple_fpath, 'r', encoding='UTF-8' ).readlines() if '@' not in ntrpl ]   
+    ntriple =[str(ntrpl).strip().replace('\n', '') for ntrpl in open(ntriple_fpath, 'r', encoding='UTF-8' ).readlines() if ('@' not in ntrpl)and("http://www.w3.org/" not in ntrpl ) ]   
     triples = [[refine(link) for link in str(triple).split() if ((link not in string.punctuation) and (link != '') and (link != ' ')) ] for triple in ntriple[5:] ]    
     triples = [ (triple[0], triple[1], str(' ').join(triple[2:]) ) for triple in triples]
     return ntriple, triples 
@@ -150,7 +150,7 @@ def sentence_filtering(text_fpath, ntriple_fpath):
                 paraphrases = []            
                 try:
                     paraphras = paraphraser.paraphrase(pred)
-                    paraphrases.extend(paraphras)
+                    paraphrases.extend(paraphras)     
                 except:
                     paraphrases.append(pred)
                     pass;            
@@ -235,30 +235,37 @@ def sentence_distill(text_fpath, ntriple_fpath):
                 try:
                     paraphras = paraphraser.paraphrase(pred)
                     paraphrases.extend(paraphras)
+                    print("\n the paraphrases are: ", paraphrases)
                 except:
                     paraphrases.append(pred)
+                    print("\n the paraphrase is: ", paraphrases)
                     pass;            
                   
                 if ((triple[0] != triple[-1])and(trpl != '')and(tx != '')and(pred != '')) and( (' '+trpl+' 'in tx) or containsAny(tx, paraphrases) )and containsAny(str(tx), subject_coref) : 
+                    predicate = None
                     try:
                         for paraphrase in paraphrases:
-                            if paraphrase in tx:
+                            if ' '+paraphrase+' ' in tx:
                                 tx = str(tx).replace(paraphrase, '<'+paraphrase+'>')
                                 predicate = paraphrase
                                 break;
                     except:
-                        predicate = pred
-                    
-                    obeject = str(ntrpl).strip('.').split()[-1]
-                    question = question_convertor.distill(predicate, obeject )
-
-                    try:
-                        collected_pool_.append( str(' , ').join([question, ntrpl]) )
-                        print("\n * the text collected is: ",tx)
-                    except:
                         pass;
-                    text_segmented_.remove(text_segmented_[txt])
-                    break;
+                        
+                    if predicate is not None :
+                        obeject = str(ntrpl).strip('.').split()[-1]
+                        question = question_convertor.distill(predicate, obeject )
+                        
+                        try:
+                            collected_pool_.append( str(' , ').join([question, ntrpl]) )
+                            print("\n * the text collected is: ",tx)
+                            text_segmented_.remove(text_segmented_[txt])
+                            break;
+                        except:
+                            continue;
+                    #text_segmented_.remove(text_segmented_[txt])
+                    #break;
+                    
                           
     collected_set_ = list(set(collected_pool_))
     collected_set_.sort(key=collected_pool_.index)

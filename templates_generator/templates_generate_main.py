@@ -94,15 +94,15 @@ if __name__ == "__main__":
                 print(" -begin to compose the template ")            
                 prediacte = ntriples[1]
                 subject = ntriples[0]            
-                query = query_generator.compose_query(prediacte, subject);
+                query = query_generator.compose_query(dbo_class, prediacte, subject);
                 print("\n the composed query is : \n", query)
 
             template = "dbo:"+dbo_class+";;;"+question+";"+query
-            print("\n TEMPLATE:   ", template)
-            save.write(template+'\n')
-            templateset.append(template)
-            print("\n -saved- \n")
-            
+            if template not in templateset:
+                print("\n TEMPLATE:   ", template)
+                save.write(template+'\n')
+                templateset.append(template)
+                print("\n -saved- \n");            
         save.close();
         
 """

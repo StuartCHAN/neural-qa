@@ -127,11 +127,11 @@ def wikipedia2dbpedia(wikipedia_url):
 
 
 
-qtemp = "SELECT ?a WHERE { <A> %(predicate)s ?a };SELECT ?a WHERE { ?a %(predicate)s [] . ?a a %(subject)s }" 
+qtemp = "SELECT ?a WHERE { <A> %(predicate)s ?a };SELECT ?a WHERE { ?a %(predicate)s [] . ?a a %(dbo_class)s }" 
 
 
-def compose_query(prediacte, subject):
-    query = str(qtemp)%{"predicate":prediacte, "subject":subject }
+def compose_query(dbo_class, prediacte, subject):
+    query = str(qtemp)%{"dbo_class":'<http://dbpedia.org/ontology/'+dbo_class+'>', "predicate":prediacte, "subject":subject }
     return query;  
 
 
