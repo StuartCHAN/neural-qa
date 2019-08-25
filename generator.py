@@ -22,7 +22,8 @@ import re
 import sys
 import traceback
 
-from generator_utils import log_statistics, save_cache, query_dbpedia, strip_brackets, encode, read_template_file
+from generator_utils import log_statistics, save_cache, query_dbpedia, strip_brackets, encode, read_template_file , do_replacements 
+
 
 CELEBRITY_LIST = [
     'dbo:Royalty',
@@ -146,15 +147,28 @@ def prioritize_triple_match( usages ):
     return sum(usages)
 
 
-def build_dataset_pair(binding, template):
+def build_dataset_pair(binding, template, flag=False):
+    print('\n build_dataset_pair(binding, template):')
     english = getattr(template, 'question')
     sparql = getattr(template, 'query')
     for variable in binding:
         uri = binding[variable]['uri']
-        label = binding[variable]['label']
+        print(" uri = binding[variable]['uri']")
+        print('\n building dataset, the URI: ', uri)
+        if flag: # this is changed to fit the transformer model
+            label = binding[variable]['label']
+        else:
+            label = do_replacements(uri)  
         placeholder = '<{}>'.format(str.upper(variable))
         if placeholder in english and label is not None:
-            english = english.replace(placeholder, strip_brackets(label))
+            print('\n building dataset, the label: ', label)
+            if flag: # this is changed to fit the transformer model
+                english = english.replace(placeholder, label )
+            else:
+                english = english.replace(placeholder, strip_brackets(label))            
+            print('\n building dataset, the strip_brackets(label): ', strip_brackets(label))
+            print('\n building dataset, the placeholder: ', placeholder)
+            print('\n building dataset, the english: ', english)
         if placeholder in sparql and uri is not None:
             sparql = sparql.replace(placeholder, uri)
 
@@ -163,7 +177,7 @@ def build_dataset_pair(binding, template):
     return dataset_pair
 
 
-def generate_dataset(templates, output_dir, file_mode):
+def generate_dataset(templates, output_dir, file_mode, flag=False):
     cache = dict()
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -175,18 +189,15 @@ def generate_dataset(templates, output_dir, file_mode):
             try:
                 results = get_results_of_generator_query(cache, template)
                 bindings = extract_bindings(results["results"]["bindings"], template)
-                if bindings is not None:
-                    print("   *************************************************    ")
-                    print("\nwhat are those bindings:",bindings)
                 # print bindings
-                if bindings is None:    
+                if bindings is None:
                     id_or_question = getattr(template, 'id') or getattr(template, 'question')
                     logging.debug("no data for {}".format(id_or_question))
                     not_instanced_templates.update([id_or_question])
                     continue
 
                 for binding in bindings:
-                    dataset_pair = build_dataset_pair(binding, template)
+                    dataset_pair = build_dataset_pair(binding, template, flag=flag )
                     # print "x", det_pair
                     if (dataset_pair):
                         dataset_pair['english'] = " ".join(dataset_pair['english'].split())
@@ -228,10 +239,7 @@ def get_results_of_generator_query( cache, template ):
             results = cache[query]
             break
         logging.debug('{}. attempt generator_query: {}'.format(attempt, query))
-        print("\nquery is what ?  ", type(query))
-        print("query looks like?  ", query)
         results = query_dbpedia(query)
-        print("This is what we want to look: ", results)
         sufficient_examples = len(results["results"]["bindings"]) >= EXAMPLES_PER_TEMPLATE/3
         if sufficient_examples:
             cache[query] = results
@@ -285,12 +293,15 @@ def normalize (ontology_class):
 
 
 if __name__ == '__main__':
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('--continue', dest='continue_generation', action='store_true', help='Continue after exception')
+    parser.add_argument('--transformer', type=bool, default=False )
     requiredNamed = parser.add_argument_group('required named arguments')
     requiredNamed.add_argument('--templates', dest='templates', metavar='templateFile', help='templates', required=True)
     requiredNamed.add_argument('--output', dest='output', metavar='outputDirectory', help='dataset directory', required=True)
     args = parser.parse_args()
+    flag = parser.transformer
 
     template_file = args.templates
     output_dir = args.output
@@ -322,7 +333,7 @@ if __name__ == '__main__':
     templates = read_template_file(template_file)
     print len(templates)
     try:
-        generate_dataset(templates, output_dir, file_mode)
+        generate_dataset(templates, output_dir, file_mode, flag=flag )
         # print "lol"
     except:
         print 'exception occured, look for error in log file'

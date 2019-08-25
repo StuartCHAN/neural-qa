@@ -96,7 +96,11 @@ def placeholdAny(sentence, seq):
         return sentence;
     
        
-def sentence_distill(text_fpath, ntriple_fpath):     
+def sentence_distill(text_fpath, ntriple_fpath): 
+    """To use a method to extract the RDFs from the sentences:
+    
+
+    """    
     ntriple, triples = prepare_rdf(ntriple_fpath)
     print("\n Ntriples: ", ntriple)
     print("\n Triples: ", triples)    
