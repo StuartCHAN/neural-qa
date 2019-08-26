@@ -71,6 +71,8 @@ python templates_generate_main.py --dbo_class=$DBO_CLASS  --temps_fpath=$EXISTIN
 
 which will automaticall initiate the pipeline.
 
+* one result of our works can be seen [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/data/Bank.zip), which facilitates to clarify the structure of Templates Bank directory with the output results inside `Bank\DBresourses\Person\Barack_Obama`.
+
 <br>
 
 ## 2. Transformer
