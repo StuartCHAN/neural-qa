@@ -164,6 +164,8 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 
     The table shows the evaluation result for the QALD-7 benchmark:
 
+    The [GERBIL](http://gerbil-qa.aksw.org/gerbil/) is an online platform to do the question-answering F1-score evaluation with confusion matrix, and this table shows the answering accuracy of the model's output.
+
 ![Evaluation.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/transf_good.gerbil.qald7_jtqxfx.png "Evaluation")
 
 
@@ -201,6 +203,13 @@ We hope to keep on the work on making the question generation even better and in
 [4] Tommaso Soru et al. (2017) SPARQL as a Foreign Language
 
 [5] Abdalghani Abujabal et al. (2018) Never-Ending Learning for Open-Domain Question Answering over Knowledge Bases
+
+[6] Rajarshi Das et al. (2017) Question Answering on Knowledge Bases and Text using Universal Schema and Memory Networks  
+
+[7] Haitian Sun et al. (2018) Open Domain Question Answering Using Early Fusion of Knowledge Bases and Text
+
+[8] Svetlana Stenchikova et al. (2018) QASR: Spoken Question Answering Using Semantic Role Labeling
+
 
 
 <br>
