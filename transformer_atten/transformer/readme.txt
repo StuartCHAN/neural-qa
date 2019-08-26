@@ -1,0 +1,1 @@
+After running the `translate.py` to get the results, please use my script `decode.py` to decode the results.

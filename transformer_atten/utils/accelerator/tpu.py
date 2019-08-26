@@ -25,6 +25,7 @@ LOCAL = "local"
 
 
 def construct_scalar_host_call(metric_dict, model_dir, prefix=""):
+  metric_names = list(metric_dict.keys())
   """Construct a host call to log scalars when training on TPU.
 
   Args:
@@ -34,9 +35,9 @@ def construct_scalar_host_call(metric_dict, model_dir, prefix=""):
 
   Returns:
     A tuple of (function, args_to_be_passed_to_said_function)
-  """
-  # type: (dict, str) -> (function, list)
-  metric_names = list(metric_dict.keys())
+  
+  # type: (dict, str) -> (function, list)"""
+  
 
   def host_call_fn(global_step, *args):
     """Training host call. Creates scalar summaries for training metrics.

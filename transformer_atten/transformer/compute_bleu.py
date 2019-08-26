@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Script to compute transformer_atten BLEU score.
+"""Script to compute official BLEU score.
 
 Source:
 https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/utils/bleu_hook.py
@@ -56,7 +56,7 @@ uregex = UnicodeRegex()
 
 
 def bleu_tokenize(string):
-  r"""Tokenize a string following the transformer_atten BLEU implementation.
+  r"""Tokenize a string following the official BLEU implementation.
 
   See https://github.com/moses-smt/mosesdecoder/'
            'blob/master/scripts/generic/mteval-v14.pl#L954-L983

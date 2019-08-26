@@ -378,14 +378,14 @@ def main(unused_argv):
   """Obtain training and evaluation data for the Transformer model."""
 
   # Download test_data
-  tf.logging.info("Step 1/5: Downloading test data")
-  train_files = get_raw_files(FLAGS.data_dir, _TEST_DATA_SOURCES)
+  tf.logging.info("Step 1/5: Loading data...")
+  """train_files = get_raw_files(FLAGS.data_dir, _TEST_DATA_SOURCES)
 
   # Get paths of download/extracted training and evaluation files.
   tf.logging.info("Step 2/5: Downloading data from source")
   train_files = get_raw_files(FLAGS.raw_dir, _TRAIN_DATA_SOURCES)
   eval_files = get_raw_files(FLAGS.raw_dir, _EVAL_DATA_SOURCES) 
-  
+  """
   train_files = {
       "inputs": ['./data/QALD7/train.en'],
       "targets": ['./data/QALD7/train.sparql'],

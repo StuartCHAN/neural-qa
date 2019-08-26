@@ -3,9 +3,9 @@
 
 An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Machine Translation Approach, with Automatic Templates Generator from Long Text.
 
-The project is Stuart Chen's research in [Google 2019 GSoC](https://summerofcode.withgoogle.com/) in collaboartion with DBpeida and AKSW Research Group. 
+The project is Stuart Chen's research in [Google 2019 GSoC](https://summerofcode.withgoogle.com/) in collaboration with DBpedia and AKSW Research Group. 
 
-Here is the [website](https://stuartjchan.online/) for blogging the reaserch development.
+Here is the [website](https://stuartjchan.online/) for blogging the research development.
 
 ![Natural Language](http://www.liberai.org/img/flag-uk-160px.png "English Language")
 ![DBpedia.](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/DBpediaLogo.svg/200px-DBpediaLogo.svg.png "DBpedia")
@@ -32,7 +32,7 @@ The component aims at automating the templates generation from the long text, wi
 
 ### 1.1. Extraction Of Wiki pages and article pre-processing
 
-We need abundant natural language textual materials to get more questions with RDFs of DBpedia, in order to transform them into templates.
+We need abundant natural language textual materials to get more questions with RDFs of DBpedia, to transform them into templates.
 
 For example, if you want to get the articles about [Brack Obama](https://en.wikipedia.org/wiki/Barack_Obama)([dbr:Barack_Obama](http://dbpedia.org/page/Barack_Obama)), we set `DBR_NAME=Barack_Obama`, then 
 
@@ -43,14 +43,14 @@ python questions_generate_main.py --dbo_class=$DBR_NAME
 the scripts will automatically make a `Bank` directory in the `neural-qa/data/` folder to save the articles.
 <br>
 
-### 1.2. Filtering of the sentences in articles to match the DBpedia ntriple RDFs
+### 1.2. Filtering of the sentences in articles to match the DBpedia triple RDFs
 
 The script [sentences_filter.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/sentences_filter.py) is for filtering out those sentences pertinent to the RDFs that we need.
 <br>
 
 ### 1.3. Convert sentences containing DBpedia entities to questions with placeholders
 
-The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/question_convertor.py) is the part responsible for converting the catched sentences to template-questions with entity placeholders.
+The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/question_convertor.py) is the part responsible for converting the caught sentences to template-questions with entity placeholders.
 
 ```txt
     e.g. She was born in France? --> where <A> was born in ?
@@ -62,7 +62,7 @@ The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-st
 This [sentence_encoder.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/vec_utils/sentence_encoder.py) is from the implementation of [Universal Sentence Encoder](https://tfhub.dev/google/universal-sentence-encoder/2)[1] which shows efficiency in semantic sentences matching, it helps to match whether there is an existing correspondent template for the new question that we have.
 <br>
 
-### 1.5. If the matching similarity score can not pass the treshold, the questions go to the query composing part 
+### 1.5. If the matching similarity score can not pass the threshold, the questions go to the query composing part 
 
 To use the pipeline, please run the [templates_generate_main.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/templates_generate_main.py) after the step 1 above,
 
@@ -70,7 +70,7 @@ To use the pipeline, please run the [templates_generate_main.py](https://github.
 python templates_generate_main.py --dbo_class=$DBO_CLASS  --temps_fpath=$EXISTING_TEMPLATES_FILE_PATH  --text_fpath=$TEXT_FILE_PATH  --ntriple_fpath=$NTRIPLES_FILE_PATH  --train_vec=$WHETHER_TO_TRAIN_THE_VECTOR  --vecpath=$FILE_PATH_THAT_SAVES_VECTORS   --temp_save_path=$FILE_PATH_SAVING_RESULTS 
 ```
 
-which will automaticall initiate the pipeline.
+which will automatically initiate the pipeline.
 
 * one result of our works can be seen [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/data/Bank.zip), which facilitates to clarify the structure of Templates Bank directory with the output results inside `Bank\DBresourses\Person\Barack_Obama`.
 
@@ -80,18 +80,18 @@ which will automaticall initiate the pipeline.
 
 The implementation of this neural transformer part gets inspiration from the paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762)[2] and its [official model by TensorFlow](https://github.com/tensorflow/models/tree/master/official)[3].
 
-![Attention Is All You Need.Figure 1](http://nlp.seas.harvard.edu/images/the-annotated-transformer_14_0.png "Attention Is All You Need.Figure 1(by Ashish Vaswani et al.)")
+![Attention Is All You Need. Figure 1](http://nlp.seas.harvard.edu/images/the-annotated-transformer_14_0.png "Attention Is All You Need.Figure 1(by Ashish Vaswani et al.)")
 
 
 ### 2.1. Data Preparation
 
 #### 2.1.1. to generate the data  
 
-We use the [templates](https://github.com/AKSW/NSpM/tree/master/data) in csv format provided by [SPARQL as a Foreign Language](https://arxiv.org/abs/1708.07624)[4] to generate the training data for the experiments.
+We use the [templates](https://github.com/AKSW/NSpM/tree/master/data) in CSV format provided by [SPARQL as a Foreign Language](https://arxiv.org/abs/1708.07624)[4] to generate the training data for the experiments.
 
 The generated data consists of two parts, namely, `data.en` the source data, and `data.sparql` the target data.
 
-In the `data.en` are the natural language questions with RDF entities annotated to be translated into RDF structured query language in SPARQL, like in this example,
+In the `data.en` are the natural language questions with RDF entities annotated to be translated into RDF structured query language SPARQL, like in this example,
 
 ```text
     "who is the spouse of dbr_Barack_Obama ?"
@@ -107,7 +107,7 @@ mkdir data/QALD7
 python generator.py  --transformer=True  --templates data/QALD-7.csv  --output data/QALD7
 ```
 
-after which this script will convert the data into training set and validation set with building the vocabulary:
+after which this script will convert the data into a training set and validation set with building the vocabulary:
 
 ```bash
 python data_preprocess.py --data_dir=./data/QALD7
@@ -120,7 +120,7 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 
 ```
 
-*  please make sure the folders and paths that have been set in the commands already exists. 
+*  Please make sure the folders and paths that have been set in the commands already exist. 
 *  one previously generated dataset can be found [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/transformer_atten/transformer/data.zip).
 
 <br>
@@ -155,27 +155,27 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 
 * Loss
 
-    This shows the cross entropy loss while trainig:
+    This shows the cross-entropy loss while training:
 
 ![loss.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/loss_sngtwq.png "loss")
 
 
 * GERBIL Evaluation
 
-    The table shows the evaulation result for the QALD-7 benchmark:
+    The table shows the evaluation result for the QALD-7 benchmark:
 
 ![Evaluation.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/transf_good.gerbil.qald7_jtqxfx.png "Evaluation")
 
 
 ## Summary
 
-I am so glad to have this experience this summer with my excellent mentors. I now get more knowledge during our research in natural language processing, knowledge grpah and deep learning. It's profounding my mind in scientific reserch, which ignites the flame of unquenchable curiosity in artificial intelligence.
+I am so glad to have this experience this summer with my excellent mentors. I now get more knowledge during our research in natural language processing, knowledge graph, and deep learning. It's profounding my mind in scientific research, which ignites the flame of unquenchable curiosity in artificial intelligence.
 
-So here, I want to talk about our project. We are using long natural language text to generate the templates, because we know how important the templates are in the training the neural SPARQL machine on knowledge graph.
+So here, I want to talk about our project. We are using long natural language text to generate the templates because we know how important the templates are in the training the neural SPARQL machine on the knowledge graph.
 
 Also, we tried to employ the state-of-the-art model, Transformer of attention mechanism, to play the role of the learner from natural language questions into the SPARQL queries.
 
-What's more, we want to make the system a never-ending-learner, like the [Never-Ending Learning for Open-Domain Question Answering over Knowledge Bases](https://dl.acm.org/citation.cfm?id=3186004)[5], to keep the long loop of accumulating knowledge. I believe this is the crucial key towards the artificial general intelligence.
+What's more, we want to make the system a never-ending-learner, like the [Never-Ending Learning for Open-Domain Question Answering over Knowledge Bases](https://dl.acm.org/citation.cfm?id=3186004)[5], to keep the long loop of accumulating knowledge. I believe this is a crucial key to artificial general intelligence.
 
 
 

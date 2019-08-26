@@ -20,7 +20,7 @@ This the templates generation component for the [Neural SPARQL Machines](https:/
 
 ### 1. Extraction Of Wiki pages and article pre-processing
 
-We need abundant natural language textual materials to get more questions with RDFs of DBpedia, in order to transform them into templates.
+We need abundant natural language textual materials to get more questions with RDFs of DBpedia, to transform them into templates.
 For example, if you want to get the articles about [Brack Obama](https://en.wikipedia.org/wiki/Barack_Obama)([dbr:Barack_Obama](http://dbpedia.org/page/Barack_Obama)), we set `DBR_NAME=Barack_Obama`, then 
 
 ```bash
@@ -29,13 +29,13 @@ python questions_generate_main.py --dbo_class=$DBR_NAME
 
 the scripts will automatically make a `Bank` directory in the `neural-qa/data/` folder to save the articles.
 
-### 2. Filtering of the sentences in articles to match the DBpedia ntriple RDFs
+### 2. Filtering of the sentences in articles to match the DBpedia triple RDFs
 
 The script [sentences_filter.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/sentences_filter.py) is for filtering out those sentences pertinent to the RDFs that we need.
 
 ### 3. Convert sentences containing DBpedia entities to questions with placeholders
 
-The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/question_convertor.py) is the part responsible for converting the catched sentences to template-questions with entity placeholders.
+The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/question_convertor.py) is the part responsible for converting the caught sentences to template-questions with entity placeholders.
 
 ```txt
     e.g. She was born in France? --> where <A> was born in ?
@@ -43,7 +43,7 @@ The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-st
 
 ### 4. Matching these questions towards the template questions in exiting templates-sets with Universal Sentence Encoder
 
-This [sentence_encoder.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/vec_utils/sentence_encoder.py) is the implementation of Universal Sentence Encoder which show efficiency in semantic sentences matching, it helps to match whether there is an existing correspondent template for the new question that we have.
+This [sentence_encoder.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/vec_utils/sentence_encoder.py) is the implementation of Universal Sentence Encoder which shows efficiency in semantic sentences matching, it helps to match whether there is an existing correspondent template for the new question that we have.
 
 ### 5. If the matching similarity score can not pass the treshold, the questions go to the query composing part 
 To use the pipeline, please run the [templates_generate_main.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/templates_generate_main.py) after the step 1 above,
@@ -52,7 +52,7 @@ To use the pipeline, please run the [templates_generate_main.py](https://github.
 python templates_generate_main.py --dbo_class=$DBO_CLASS  --temps_fpath=$EXISTING_TEMPLATES_FILE_PATH  --text_fpath=$TEXT_FILE_PATH  --ntriple_fpath=$NTRIPLES_FILE_PATH  --train_vec=$WHETHER_TO_TRAIN_THE_VECTOR  --vecpath=$FILE_PATH_THAT_SAVES_VECTORS   --temp_save_path=$FILE_PATH_SAVING_RESULTS 
 ```
 
-which will automaticall initiate the pipeline.
+which will automatically initiate the pipeline.
 
 <br>
 <br>
@@ -76,7 +76,7 @@ we can set the `--dbo_class=Person` then we can run the script like:
 python questions_generate_main.py --dbo_class=Person
 ```
 
-then the program will automatically make a directory `Bank\DBresourses\$dbo_class`that we call the templates bank under the `neural-qa\data\` path. In the folder, eache fetched entity will get its own folder containing its article text file, the structure look like:
+then the program will automatically make a directory `Bank\DBresourses\$dbo_class`that we call the templates bank under the `neural-qa\data\` path. In the folder, each fetched entity will get its folder containing its article text file, the structure looks like:
 
 ```bash
 neural-qa\data\Bank\DBresourses\$dbo_class
@@ -91,16 +91,13 @@ neural-qa\data\Bank\DBresourses\$dbo_class
 
 ### 2. for extracting the articles from the Wikipedia pages:
 
-Then to begin the generation of templates by [templates_generate_main.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/templates_generate_main.py), we need the material prepared in last step, the text file, 
+Then to begin the generation of templates by [templates_generate_main.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/templates_generate_main.py), we need the material prepared in the last step, the text file, 
 also if we want to employ the universal sentence encoder to match the newly generated templates towards the existing ones, 
-a templateset about the same DBpedia ontology topic, 
+a template set about the same DBpedia ontology topic, 
 e.g. `annoattions_Person.csv` for the `dbr_Barack_Obama` is needed:
 
-We can set whether to train a new universal sentence encoder verctorbase or not 
+We can set whether to train a new universal sentence encoder vector base or not 
 by setting the parameter `--train_vec` which has default as `False`,
 
-then if we set it `True` and the templateset exists,
-the system will save a vectorbase for it for further usage.
-
-
-
+then if we set it `True` and the template set exists,
+the system will save a vector base for it for further usage.
