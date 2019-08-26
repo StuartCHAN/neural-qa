@@ -1,5 +1,6 @@
 # Neural SPARQL Machines: Attention-based Transformer with Automatic Templates Generation
 
+
 An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Machine Translation Approach, with Automatic Templates Generator from Long Text.
 
 The project is Stuart Chen's research in [Google 2019 GSoC](https://summerofcode.withgoogle.com/) in collaboartion with DBpeida and AKSW Research Group. 
