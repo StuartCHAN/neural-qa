@@ -2,7 +2,9 @@
 
 An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Machine Translation Approach, with Automatic Templates Generator from Long Text.
 
-The project is Stuart Chen's research in [Google 2019 GSoC project](https://stuartjchan.online/) in collaboartion with DBpeida and AKSW Research Group.
+The project is Stuart Chen's research in [Google 2019 GSoC](https://summerofcode.withgoogle.com/) in collaboartion with DBpeida and AKSW Research Group. 
+
+Here is the [website](https://stuartjchan.online/) for blogging the reaserch development.
 
 ![Natural Language](http://www.liberai.org/img/flag-uk-160px.png "English Language")
 ![DBpedia.](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/DBpediaLogo.svg/200px-DBpediaLogo.svg.png "DBpedia")
