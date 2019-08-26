@@ -56,7 +56,7 @@ The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-st
 
 ### 1.4. Matching these questions towards the template questions in exiting templates-sets with Universal Sentence Encoder
 
-This [sentence_encoder.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/vec_utils/sentence_encoder.py) is the implementation of Universal Sentence Encoder which show efficiency in semantic sentences matching, it helps to match whether there is an existing correspondent template for the new question that we have.
+This [sentence_encoder.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/vec_utils/sentence_encoder.py) is from the implementation of [Universal Sentence Encoder](https://tfhub.dev/google/universal-sentence-encoder/2)[1] which shows efficiency in semantic sentences matching, it helps to match whether there is an existing correspondent template for the new question that we have.
 <br>
 
 ### 1.5. If the matching similarity score can not pass the treshold, the questions go to the query composing part 
@@ -73,16 +73,16 @@ which will automaticall initiate the pipeline.
 
 ## 2. Transformer
 
-The implementation of this neural transformer part gets inspiration from the paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762) and its [official model by TensorFlow](https://github.com/tensorflow/models/tree/master/official).
+The implementation of this neural transformer part gets inspiration from the paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762)[2] and its [official model by TensorFlow](https://github.com/tensorflow/models/tree/master/official)[3].
 
-![Attention Is All You Need.](http://nlp.seas.harvard.edu/images/the-annotated-transformer_14_0.png "attention-mechanism")
+![Attention Is All You Need.Figure 1](http://nlp.seas.harvard.edu/images/the-annotated-transformer_14_0.png "Attention Is All You Need.Figure 1(by Ashish Vaswani et al.)")
 
 
 ### 2.1. Data Preparation
 
 #### 2.1.1. to generate the data  
 
-We use the [templates](https://github.com/AKSW/NSpM/tree/master/data) in csv format provided by [SPARQL as a Foreign Language](https://arxiv.org/abs/1708.07624) to generate the training data for the experiments.
+We use the [templates](https://github.com/AKSW/NSpM/tree/master/data) in csv format provided by [SPARQL as a Foreign Language](https://arxiv.org/abs/1708.07624)[4] to generate the training data for the experiments.
 
 The generated data consists of two parts, namely, `data.en` the source data, and `data.sparql` the target data.
 
@@ -109,52 +109,45 @@ python transformer_main.py --data_dir=./data/QALD7 --model_dir=./data/QALD7/mode
 
 ```
 
-#### 2.1.2. Pre-generated data
-
-The pre-generated data is also provided for more convinience.
-
 ### 2.2. Model Training 
 
-.
+To conduct the training, please notice the parameters to set:
 
-### Inference
-
-
-
-## Papers
-
-### Soru and Marx et al., 2017
-
-* Permanent URI: http://w3id.org/neural-sparql-machines/soru-marx-semantics2017.html
-* arXiv: https://arxiv.org/abs/1708.07624
-
-```
-@inproceedings{soru-marx-2017,
-    author = "Tommaso Soru and Edgard Marx and Diego Moussallem and Gustavo Publio and Andr\'e Valdestilhas and Diego Esteves and Ciro Baron Neto",
-    title = "{SPARQL} as a Foreign Language",
-    year = "2017",
-    journal = "13th International Conference on Semantic Systems (SEMANTiCS 2017) - Posters and Demos",
-    url = "http://w3id.org/neural-sparql-machines/soru-marx-semantics2017.html",
-}
+```bash
+   PARAM_SET=big
+   DATA_DIR=$path/to/the/data
+   MODEL_DIR=$path/to/your/model
+   VOCAB_FILE=$DATA_DIR/vocab.en_sparql
 ```
 
-### Soru et al., 2018
+* just a side note, please make sure the generated date for training are put in a folder that only contains the data without any file else, otherwise it might raise the [tf.errors.DataLossError](https://www.tensorflow.org/api_docs/python/tf/errors/DataLossError). 
 
-* NAMPI Website: https://uclmr.github.io/nampi/
-* arXiv: https://arxiv.org/abs/1806.10478
+In our experiment, we use the command below:
 
-```
-@inproceedings{soru-marx-nampi2018,
-    author = "Tommaso Soru and Edgard Marx and Andr\'e Valdestilhas and Diego Esteves and Diego Moussallem and Gustavo Publio",
-    title = "Neural Machine Translation for Query Construction and Composition",
-    year = "2018",
-    journal = "ICML Workshop on Neural Abstract Machines \& Program Induction (NAMPI v2)",
-    url = "https://arxiv.org/abs/1806.10478",
-}
+```bash
+python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/QALD7/model_QALD7   --vocab_file=./data/QALD7/vocab.en_sparql   --param_set=big 
 ```
 
-## Contact
+* To see more instructions, this refers to the [official model](https://github.com/tensorflow/models/tree/master/official/transformer#detailed-instructions).
 
-* Primary contacts: [Tommaso Soru](http://tommaso-soru.it) and [Edgard Marx](http://emarx.org).
-* Neural SPARQL Machines [mailing list](https://groups.google.com/forum/#!forum/neural-sparql-machines).
-* Follow the [project on ResearchGate](https://www.researchgate.net/project/Neural-SPARQL-Machines).
+### 2.3. Model Results
+
+* Loss
+
+![loss.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/loss_sngtwq.png "loss")
+
+* GERBIL Evaluation
+
+![Evaluation.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/transf_good.gerbil.qald7_jtqxfx.png "Evaluation")
+
+
+
+## References
+
+[1] Daniel Cer et al. (2018) Universal Sentence Encoder
+
+[2] Ashish Vaswani et al. (2017) Attention Is All You Need 
+
+[3] TensorFlow - Official Models: https://github.com/tensorflow/models 
+
+[4] Tommaso Soru et al. (2017) SPARQL as a Foreign Language
