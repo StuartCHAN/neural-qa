@@ -167,6 +167,8 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
     The [GERBIL](http://gerbil-qa.aksw.org/gerbil/) is an online platform to do the question-answering F1-score evaluation with confusion matrix, and this table shows the answering accuracy of the model's output.
 
 ![Evaluation.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/transf_good.gerbil.qald7_jtqxfx.png "Evaluation")
+    For better comparison, we have a blog about the [results](https://stuartjchan.online/2019/07/19/Week-7&8/) of QALD evaluation of original NSpM model.
+
 
 
 ## Summary
