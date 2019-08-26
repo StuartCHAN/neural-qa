@@ -104,12 +104,20 @@ mkdir data/QALD7
 python generator.py  --transformer=True  --templates data/QALD-7.csv  --output data/QALD7
 ```
 
+after which this script will convert the data into training set and validation set with building the vocabulary:
+
+```bash
+python data_preprocess.py --data_dir=./data/QALD7
+```
+
 Then, we need to pre-peocess the data and build the vocabulary file and split the data into tarining set and validation set:
 
 ```bash
-python transformer_main.py --data_dir=./data/QALD7 --model_dir=./data/QALD7/model_QALD7   --vocab_file=./data/QALD7/vocab.en_sparql  --param_set=base
+python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/QALD7/model_QALD7   --vocab_file=./data/QALD7/vocab.en_sparql   --param_set=big 
 
 ```
+
+*  please make sure the folders and paths that have been set in the commands already exists.
 
 ### 2.2. Model Training 
 
