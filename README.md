@@ -147,6 +147,11 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 
 ### 2.3. Model Results
 
+* Training Time
+
+![Training Time.](https://res.cloudinary.com/stuarteec/image/upload/v1566822800/training_time_xxuzuj.png "Training Time")
+
+
 * Loss
 
     This shows the cross entropy loss while trainig:
