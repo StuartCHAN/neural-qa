@@ -134,11 +134,27 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 
 * Loss
 
+    This shows the cross entropy loss while trainig:
+
 ![loss.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/loss_sngtwq.png "loss")
+
 
 * GERBIL Evaluation
 
+    The table shows the evaulation result for the QALD-7 benchmark:
+
 ![Evaluation.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/transf_good.gerbil.qald7_jtqxfx.png "Evaluation")
+
+
+## Summary
+
+I am so glad to have this experience this summer with my excellent mentors. I now get more knowledge during our research in natural language processing, knowledge grpah and deep learning. It's profounding my mind in scientific reserch, which ignites the flame of unquenchable curiosity in artificial intelligence.
+
+So here, I want to talk about our project. We are using long natural language text to generate the templates, because we know how important the templates are in the training the neural SPARQL machine on knowledge graph.
+
+Also, we tried to employ the state-of-the-art model, Transformer of attention mechanism, to play the role of the learner from natural language questions into the SPARQL queries.
+
+What's more, we want to make the system a never-ending-learner, like the [Never-Ending Learning for Open-Domain Question Answering over Knowledge Bases](https://dl.acm.org/citation.cfm?id=3186004)[5], to keep the long loop of accumulating knowledge. I believe this is the crucial key towards the artificial general intelligence.
 
 
 
@@ -151,3 +167,8 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 [3] TensorFlow - Official Models: https://github.com/tensorflow/models 
 
 [4] Tommaso Soru et al. (2017) SPARQL as a Foreign Language
+
+[5] Abdalghani Abujabal et al. (2018) Never-Ending Learning for Open-Domain Question Answering over Knowledge Bases
+
+
+<br>
