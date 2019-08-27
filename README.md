@@ -55,12 +55,12 @@ The [question_convertor.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-st
 ```txt
     e.g. She was born in France? --> where <A> was born in ?
 ```
-<br>
+
 
 ### 1.4. Matching these questions towards the template questions in exiting templates-sets with Universal Sentence Encoder
 
 This [sentence_encoder.py](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/templates_generator/vec_utils/sentence_encoder.py) is from the implementation of [Universal Sentence Encoder](https://tfhub.dev/google/universal-sentence-encoder/2)[1] which shows efficiency in semantic sentences matching, it helps to match whether there is an existing correspondent template for the new question that we have.
-<br>
+
 
 ### 1.5. If the matching similarity score can not pass the threshold, the questions go to the query composing part 
 
@@ -167,7 +167,6 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
     The [GERBIL](http://gerbil-qa.aksw.org/gerbil/) is an online platform to do the question-answering F1-score evaluation with confusion matrix, and this table shows the answering accuracy of the model's output.
 
 ![Evaluation.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/transf_good.gerbil.qald7_jtqxfx.png "Evaluation")
-
     For better comparison, we have a blog about the [results](https://stuartjchan.online/2019/07/19/Week-7&8/) of QALD evaluation of original NSpM model.
 
 <br>
