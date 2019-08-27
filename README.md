@@ -1,6 +1,6 @@
 # Neural SPARQL Machines: Attention-based Transformer with Automatic Templates Generation
 
-
+<br>
 An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Machine Translation Approach, with Automatic Templates Generator from Long Text.
 
 The project is Stuart Chen's research in [Google 2019 GSoC](https://summerofcode.withgoogle.com/) in collaboration with DBpedia and AKSW Research Group. 
@@ -167,9 +167,10 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
     The [GERBIL](http://gerbil-qa.aksw.org/gerbil/) is an online platform to do the question-answering F1-score evaluation with confusion matrix, and this table shows the answering accuracy of the model's output.
 
 ![Evaluation.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/transf_good.gerbil.qald7_jtqxfx.png "Evaluation")
+
     For better comparison, we have a blog about the [results](https://stuartjchan.online/2019/07/19/Week-7&8/) of QALD evaluation of original NSpM model.
 
-
+<br>
 
 ## Summary
 
@@ -193,6 +194,7 @@ Another thing that I still remember is the paraphrasing of the predicates, we us
 
 We hope to keep on the work on making the question generation even better and including ASK queries, queries that require filter (how many, how much, etc.) and complex queries as well. Because we believe this can make the neural SPARQL machines get even better and better performance.
 
+<br>
 
 ## References
 
