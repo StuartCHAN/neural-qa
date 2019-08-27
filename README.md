@@ -113,7 +113,7 @@ after which this script will convert the data into a training set and validation
 python data_preprocess.py --data_dir=./data/QALD7
 ```
 
-Then, we need to pre-peocess the data and build the vocabulary file and split the data into tarining set and validation set:
+Then, we need to pre-process the data and build the vocabulary file and split the data into tarining set and validation set:
 
 ```bash
 python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/QALD7/model_QALD7   --vocab_file=./data/QALD7/vocab.en_sparql   --param_set=big 
