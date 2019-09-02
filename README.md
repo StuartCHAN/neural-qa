@@ -47,7 +47,7 @@ We need abundant natural language textual materials to get more questions with R
 For example, if you want to get the articles about [Brack Obama](https://en.wikipedia.org/wiki/Barack_Obama)([dbr:Barack_Obama](http://dbpedia.org/page/Barack_Obama)), we set `DBR_NAME=Barack_Obama`, then 
 
 ```bash
-python questions_generate_main.py --dbo_class=$DBR_NAME
+neural-qa/templates_generator> python questions_generate_main.py --dbo_class=$DBR_NAME
 ```
 here, the variable `$DBR_NAME` should be a certain entity, like `Barack_Obama`.
 
@@ -106,7 +106,7 @@ Please have a look at the parameters:
 For example, we run the program for `dbr_Barack_Obama`, we should use the command as below:
 
 ```bash
-neural-qa/templates_generator> templates_generator>python templates_generate_main.py  --dbo_class=Person --temps_fpath=../data/annotations_Person.csv --text_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.txt --ntriple_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.ntriples  --vecpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.vectors   --temp_save_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.template.csv
+neural-qa/templates_generator> python templates_generate_main.py  --dbo_class=Person --temps_fpath=../data/annotations_Person.csv --text_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.txt --ntriple_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.ntriples  --vecpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.vectors   --temp_save_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.template.csv
 ```
 
 ### 1.6. Guidance
