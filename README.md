@@ -167,7 +167,7 @@ neural-qa/transformer_atten/transformer> python transformer_main.py --data_dir=.
 ```
 
 *  Please make sure the folders and paths that have been set in the commands already exist. 
-*  one previously generated dataset can be found [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/transformer_atten/transformer/data.zip), and put it in `neural-qa/transformer_atten/transformer`. Decompress the zipped file and put it in the `neural-qa/transformer_atten/transformer/data/QALD7`.
+*  We stronly encourage to use one previously generated dataset can be found [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/transformer_atten/transformer/data.zip), and put it in `neural-qa/transformer_atten/transformer`. Decompress the zipped file and put it in the `neural-qa/transformer_atten/transformer/data/QALD7`.
 
 <br>
 
