@@ -301,7 +301,7 @@ if __name__ == '__main__':
     requiredNamed.add_argument('--templates', dest='templates', metavar='templateFile', help='templates', required=True)
     requiredNamed.add_argument('--output', dest='output', metavar='outputDirectory', help='dataset directory', required=True)
     args = parser.parse_args()
-    flag = parser.transformer
+    flag = args.transformer
 
     template_file = args.templates
     output_dir = args.output
