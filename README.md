@@ -33,7 +33,7 @@ To show the workflow, the model architecture is like:
 
 ![architecture and pipeline](https://res.cloudinary.com/stuarteec/image/upload/v1566790535/Atten_NSPM00.v02_y762nv.png "Model Architecture" )
 
-* Before running all the scripts, please mind that this repository folder should have been exported to the system path '$PYTHONPATH'. For example, like:
+* Before running all the scripts, please mind that this repository folder should have been exported to the system path '$PYTHONPATH'. 
 
 
 ## 1. Automatic Templates Generator
