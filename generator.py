@@ -185,7 +185,7 @@ def generate_dataset(templates, output_dir, file_mode, flag=False):
     with open(output_dir + '/data_300.en', file_mode) as english_questions, open(output_dir + '/data_300.sparql', file_mode) as sparql_queries:
         for template in templates:
             it = it + 1
-            print "for {}th template".format(it)
+            #print( "for {}th template".format(it)
             try:
                 results = get_results_of_generator_query(cache, template)
                 bindings = extract_bindings(results["results"]["bindings"], template)
