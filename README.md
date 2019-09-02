@@ -99,6 +99,7 @@ Please have a look at the parameters:
 
 * 7. for `--temp_save_path=$FILE_PATH_SAVING_RESULTS `, please set the file path where you want to save the new templateset generated.
 
+    To find the ntriple files and text files automatically saved, please go into the `neural-qa/data/Bank/DBresources/`, you will see the folder corespondent to the entity's ontology category, like, for `Barack_Obama` is in category `Person`, then you can find the folder `neural-qa/data/Bank/DBresources/Person/Barack_Obama`, the ntriple file and the text file will be seen there. 
 
 * one result of our works can be seen [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/data/Bank.zip), which facilitates to clarify the structure of Templates Bank directory with the output results inside `Bank\DBresourses\Person\Barack_Obama`.
 
