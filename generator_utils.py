@@ -11,13 +11,14 @@ Version 0.0.4
 
 """
 import collections
-import httplib
+import http.client as httplib
 import json
 import logging
 import re
 import sys
 import urllib
-import urllib2
+import urllib.request as urllib2
+from functools import reduce
 
 ENDPOINT = "http://dbpedia.org/sparql"
 GRAPH = "http://dbpedia.org"
@@ -55,8 +56,11 @@ def query_dbpedia( query ):
     param["timeout"] = "600" 
     param["debug"] = "on"
     try:
-        resp = urllib2.urlopen(ENDPOINT + "?" + urllib.urlencode(param))
+        #resp = urllib2.urlopen(ENDPOINT + "?" + urllib.urlencode(param))
+        resp = urllib2.urlopen(ENDPOINT + "?" + urllib.parse.urlencode(param))
+        print("\nparam--> ",param)
         j = resp.read()
+        print("\nj-result--> ",j)
         resp.close()
     except (urllib2.HTTPError, httplib.BadStatusLine):
         logging.debug("*** Query error. Empty result set. ***")

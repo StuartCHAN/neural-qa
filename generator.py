@@ -60,7 +60,8 @@ def extract_bindings( data, template ):
     if len(matches) <= EXAMPLES_PER_TEMPLATE:
         best_matches = matches
     else:
-        best_matches = sort_matches(matches, template)[0:EXAMPLES_PER_TEMPLATE]
+        #best_matches = sort_matches(matches, template)[0:EXAMPLES_PER_TEMPLATE]
+        best_matches = sorted(matches, template)[0:EXAMPLES_PER_TEMPLATE]
 
     bindings = list()
     variables = getattr(template, 'variables')
@@ -147,7 +148,7 @@ def prioritize_triple_match( usages ):
     return sum(usages)
 
 
-def build_dataset_pair(binding, template, flag=False):
+def build_dataset_pair(binding, template, flag):
     print('\n build_dataset_pair(binding, template):')
     english = getattr(template, 'question')
     sparql = getattr(template, 'query')
@@ -155,17 +156,21 @@ def build_dataset_pair(binding, template, flag=False):
         uri = binding[variable]['uri']
         print(" uri = binding[variable]['uri']")
         print('\n building dataset, the URI: ', uri)
+        label = do_replacements(uri)
+        '''
         if flag: # this is changed to fit the transformer model
             label = binding[variable]['label']
         else:
-            label = do_replacements(uri)  
+            label = do_replacements(uri)  '''
         placeholder = '<{}>'.format(str.upper(variable))
         if placeholder in english and label is not None:
             print('\n building dataset, the label: ', label)
+            english = english.replace(placeholder, label )
+            '''
             if flag: # this is changed to fit the transformer model
                 english = english.replace(placeholder, label )
             else:
-                english = english.replace(placeholder, strip_brackets(label))            
+                english = english.replace(placeholder, strip_brackets(label)) '''           
             print('\n building dataset, the strip_brackets(label): ', strip_brackets(label))
             print('\n building dataset, the placeholder: ', placeholder)
             print('\n building dataset, the english: ', english)
@@ -177,19 +182,20 @@ def build_dataset_pair(binding, template, flag=False):
     return dataset_pair
 
 
-def generate_dataset(templates, output_dir, file_mode, flag=False):
+def generate_dataset(templates, output_dir, file_mode, flag):
     cache = dict()
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     it = 0
-    with open(output_dir + '/data_300.en', file_mode) as english_questions, open(output_dir + '/data_300.sparql', file_mode) as sparql_queries:
+    with open(output_dir + '/data.en', file_mode) as english_questions, open(output_dir + '/data.sparql', file_mode) as sparql_queries:
         for template in templates:
             it = it + 1
-            #print( "for {}th template".format(it)
+            print( "for {}th template".format(it) )
             try:
                 results = get_results_of_generator_query(cache, template)
+                print(it, ' ---> ', results, '\n' )
                 bindings = extract_bindings(results["results"]["bindings"], template)
-                # print bindings
+                print( bindings)
                 if bindings is None:
                     id_or_question = getattr(template, 'id') or getattr(template, 'question')
                     logging.debug("no data for {}".format(id_or_question))
@@ -197,8 +203,8 @@ def generate_dataset(templates, output_dir, file_mode, flag=False):
                     continue
 
                 for binding in bindings:
-                    dataset_pair = build_dataset_pair(binding, template, flag=flag )
-                    # print "x", det_pair
+                    dataset_pair = build_dataset_pair(binding, template, flag )
+                    print( "\n dataset_pair---> ", dataset_pair)
                     if (dataset_pair):
                         dataset_pair['english'] = " ".join(dataset_pair['english'].split())
                         english_questions.write("{}\n".format(dataset_pair['english']))
@@ -324,16 +330,18 @@ if __name__ == '__main__':
 
     # reload(sys) to set default encoding
 
-    reload(sys)
-    sys.setdefaultencoding("utf-8")
+    #reload(sys)
+    #sys.setdefaultencoding("utf-8")
+    import importlib,sys 
+    importlib.reload(sys)
 
     not_instanced_templates = collections.Counter()
     used_resources = collections.Counter(json.loads(open(resource_dump_file).read())) if use_resources_dump else collections.Counter()
     file_mode = 'a' if use_resources_dump else 'w'
     templates = read_template_file(template_file)
-    #print len(templates)
+    print(len(templates)) 
     try:
-        generate_dataset(templates, output_dir, file_mode, flag=flag )
+        generate_dataset(templates, output_dir, file_mode, flag )
         # print "lol"
     except:
         #print 'exception occured, look for error in log file'
