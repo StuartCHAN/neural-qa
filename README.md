@@ -49,6 +49,7 @@ For example, if you want to get the articles about [Brack Obama](https://en.wiki
 ```bash
 python questions_generate_main.py --dbo_class=$DBR_NAME
 ```
+here, the variable `$DBR_NAME` should be a certain entity, like `Barack_Obama`.
 
 the scripts will automatically make a `Bank` directory in the `neural-qa/data/` folder to save the articles.
 <br>
@@ -82,7 +83,28 @@ python templates_generate_main.py --dbo_class=$DBO_CLASS  --temps_fpath=$EXISTIN
 
 which will automatically initiate the pipeline.
 
+Please have a look at the parameters:
+
+* 1. for `--dbo_class=$DBO_CLASS`, the `$DBO_CLASS` should be a ontology category, like: `Person`, `Monument`, etc.
+
+* 2. for `--temps_fpath=$EXISTING_TEMPLATES_FILE_PATH`, the `$EXISTING_TEMPLATES_FILE_PATH` should be a file path to the templateset for the DBpedia entity resource(dbr), like, for `Barack_Obama`, we should use the templateset for `Person`.
+
+* 3. for `--text_fpath=$TEXT_FILE_PATH`, the `$TEXT_FILE_PATH` should be the text article extracted from the Wikipage.
+
+* 4. for `--ntriple_fpath=$NTRIPLES_FILE_PATH`, it should be the ntriple file.
+
+* 5. for `--train_vec=$WHETHER_TO_TRAIN_THE_VECTOR`, the default is to use the prepared vectors, however if you want, you can set it to `True`, which trains the vector by Universal Sentence Encoder.
+
+* 6. for `--vecpath=$FILE_PATH_THAT_SAVES_VECTORS`, it's the file path where the vectors are store.
+
+* 7. for `--temp_save_path=$FILE_PATH_SAVING_RESULTS `, please set the file path where you want to save the new templateset generated.
+
+
 * one result of our works can be seen [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/data/Bank.zip), which facilitates to clarify the structure of Templates Bank directory with the output results inside `Bank\DBresourses\Person\Barack_Obama`.
+
+### 1.6. Guidance
+
+
 
 <br>
 
