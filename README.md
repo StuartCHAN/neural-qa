@@ -37,7 +37,7 @@ To show the workflow, the model architecture is like:
 ```python
 import sys
 # insert at 1, 0 is the script path (or '' in REPL)
-sys.path.insert(1, '/data/analytics/nausheen/new/neural-qa-gsoc-stuart')
+sys.path.insert(1, '/data/analytics/nausheen/new/neural-qa')
 ```
 
 ## 1. Automatic Templates Generator
