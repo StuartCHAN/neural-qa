@@ -110,7 +110,7 @@ To begin with, please run the data generation:
 * this one command must be run in Python 2.7, since it was from the previous project.
 
 ```bash
-cd  neural-qa/transformer_atten/transformer
+cd  neural-qa/
 mkdir data/QALD7
 python generator.py  --transformer=True  --templates data/QALD-7.csv  --output data/QALD7
 ```
@@ -118,7 +118,13 @@ python generator.py  --transformer=True  --templates data/QALD-7.csv  --output d
 after which this script will convert the data into a training set and validation set with building the vocabulary:
 
 ```bash
-python data_preprocess.py --data_dir=./data/QALD7
+cd ./transformer_atten/transformer
+```
+
+then, we make a folder named 'data' in the `transformer` folder, and again make a folder `QALD7` in the folder `data`, please copy the generated data files in to the `./data/QALD7/` folder: 
+
+```bash
+neural-qa/transformer_atten/transformer> python data_preprocess.py --data_dir=./data/QALD7
 ```
 
 Then, we need to pre-process the data and build the vocabulary file and split the data into tarining set and validation set:
