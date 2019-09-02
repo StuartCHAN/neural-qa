@@ -175,6 +175,8 @@ neural-qa/transformer_atten/transformer> python transformer_main.py --data_dir=.
 
 To conduct the training, please notice the parameters to set:
 
+* Please put all the tfrecord files in the `neural-qa/transformer_atten/transformer/data/QALD7/DATA_DIR/` to prevent the runing issues.
+
 ```bash
    PARAM_SET=big
    DATA_DIR=$path/to/the/data
