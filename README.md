@@ -33,7 +33,7 @@ To show the workflow, the model architecture is like:
 
 ![architecture and pipeline](https://res.cloudinary.com/stuarteec/image/upload/v1566790535/Atten_NSPM00.v02_y762nv.png "Model Architecture" )
 
-* To begin with, please run the requirements.txt to set up all the dependencies. Before running all the scripts, please mind that this repository folder should have been exported to the system path `$PYTHONPATH`. Also, the model `en-core-web-sm==2.1.0` for spaCy need you to download, see the instruction on official page of [spaCy](https://spacy.io/).
+* To begin with, please run the requirements.txt to set up all the dependencies. Before running all the scripts, please mind that this repository folder should have been exported to the system path `$PYTHONPATH`. Also, the model `en-core-web-sm==2.1.0` for spaCy need you to download, see the instruction on official page of [spaCy](https://spacy.io/).Also, please make a folder called 'glove2wordvec' in 'neural-qa/data', and put the word2vec file into it.
 
 
 ## 1. Automatic Templates Generator
