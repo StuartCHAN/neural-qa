@@ -319,7 +319,7 @@ if __name__ == '__main__':
     if (resource_dump_exists and not use_resources_dump):
         warning_message = 'Warning: The file {} exists which indicates an error. Remove file or continue generation after fixing with --continue'.format(
             resource_dump_file)
-        print warning_message
+        #print warning_message
         sys.exit(1)
 
     # reload(sys) to set default encoding
@@ -331,12 +331,12 @@ if __name__ == '__main__':
     used_resources = collections.Counter(json.loads(open(resource_dump_file).read())) if use_resources_dump else collections.Counter()
     file_mode = 'a' if use_resources_dump else 'w'
     templates = read_template_file(template_file)
-    print len(templates)
+    #print len(templates)
     try:
         generate_dataset(templates, output_dir, file_mode, flag=flag )
         # print "lol"
     except:
-        print 'exception occured, look for error in log file'
+        #print 'exception occured, look for error in log file'
         save_cache(resource_dump_file, used_resources)
     else:
         save_cache('{}/used_resources_{:%Y-%m-%d-%H-%M}.json'.format(output_dir, time), used_resources)
