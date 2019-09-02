@@ -33,9 +33,11 @@ To show the workflow, the model architecture is like:
 
 ![architecture and pipeline](https://res.cloudinary.com/stuarteec/image/upload/v1566790535/Atten_NSPM00.v02_y762nv.png "Model Architecture" )
 
+* Before running all the scripts, please mind that this repository folder should have been exported to the system path '$PYTHONPATH'.
+
 ## 1. Automatic Templates Generator
 
-The component aims at automating the templates generation from the long text, with the help of Universal Sentence Encoder, DBpedia-Spotlight, DBpedia-Lookup, NLTK, and Spacy. Before running the scripts, please mind that this repository folder should have been exported to the system path '$PYTHONPATH'.
+The component aims at automating the templates generation from the long text, with the help of Universal Sentence Encoder, DBpedia-Spotlight, DBpedia-Lookup, NLTK, and Spacy. 
 
 ### 1.1. Extraction Of Wiki pages and article pre-processing
 
