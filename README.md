@@ -103,6 +103,12 @@ Please have a look at the parameters:
 
 * one result of our works can be seen [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/data/Bank.zip), which facilitates to clarify the structure of Templates Bank directory with the output results inside `Bank\DBresourses\Person\Barack_Obama`.
 
+For example, we run the program for `dbr_Barack_Obama`, we should use the command as below:
+
+```bash
+neural-qa/templates_generator> templates_generator>python templates_generate_main.py  --dbo_class=Person --temps_fpath=../data/annotations_Person.csv --text_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.txt --ntriple_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.ntriples  --vecpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.vectors   --temp_save_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.template.csv
+```
+
 ### 1.6. Guidance
 
 
