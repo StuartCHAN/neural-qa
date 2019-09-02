@@ -157,7 +157,7 @@ To conduct the training, please notice the parameters to set:
    VOCAB_FILE=$DATA_DIR/vocab.en_sparql
 ```
 
-* just a side note, please make sure the generated date for training are put in a folder that only contains the data without any file else, otherwise it might raise the [tf.errors.DataLossError](https://www.tensorflow.org/api_docs/python/tf/errors/DataLossError). 
+* just a side note, please make sure the generated date for training are put in a folder that only contains the data without any file else, and we should put the generated tfrecords into a `DATA_DIR` folder in `transformer/data/QALD7`, otherwise it might raise the [tf.errors.DataLossError](https://www.tensorflow.org/api_docs/python/tf/errors/DataLossError). 
 
 In our experiment, we use the command below:
 
