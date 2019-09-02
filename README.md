@@ -107,6 +107,7 @@ In the `data.en` are the natural language questions with RDF entities annotated 
 ```
 
 To begin with, please run the data generation:
+* this one command must be run in Python 2.7, since it was from the previous project.
 
 ```bash
 cd  neural-qa/transformer_atten/transformer
