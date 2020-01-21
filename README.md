@@ -1,7 +1,7 @@
 # Attention-based Transformer for Long-context Question Answering 
 
 <br>
-An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Machine Translation Approach, with Automatic Templates Generator from Long Text. 
+An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Sequence-to-sequence Approach, with Automatic Templates Generation from Long Text. 
 
 The project is Stuart Chen's research in [Google 2019 GSoC](https://summerofcode.withgoogle.com/) in collaboration with DBpedia and AKSW Research Group. 
 
