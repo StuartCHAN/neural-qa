@@ -1,4 +1,4 @@
-# Neural SPARQL Machines: Attention-based Transformer with Automatic Templates Generation
+# Attention-based Transformer for Long-context Question Answering 
 
 <br>
 An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Machine Translation Approach, with Automatic Templates Generator from Long Text. 
