@@ -228,11 +228,11 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 
 ## Summary
 
-I am so glad to have this experience this summer with my excellent mentors. I now get more knowledge during our research in natural language processing, knowledge graph, and deep learning. It's profounding my mind in scientific research, which ignites the flame of unquenchable curiosity in artificial intelligence.
+I am so glad to have this scientific research experience with my excellent researchers from Google and DBpedia. I get more profound insights during our research in natural language processing, knowledge graph, and deep learning. It's profounding my mind in scientific research, which ignites the flame of unquenchable curiosity in artificial intelligence.
 
-So here, I want to talk about our project. We are using long natural language text to generate the templates because we know how important the templates are in the training the neural SPARQL machine on the knowledge graph.
+So here, I want to talk about this project. We are using long natural language text to generate the question templates for reasoning on the knowledge graph.
 
-Also, we tried to employ the state-of-the-art model, Transformer of attention mechanism, to play the role of the learner from natural language questions into the SPARQL queries.
+Also, we tried to make the best use of the state-of-the-art model, Transformer of attention mechanism, to play the role of the learner from natural language questions into the SPARQL queries on the graph-structured relational database.
 
 What's more, we want to make the system a never-ending-learner, like the [Never-Ending Learning for Open-Domain Question Answering over Knowledge Bases](https://dl.acm.org/citation.cfm?id=3186004)[5], to keep the long loop of accumulating knowledge. I believe this is a crucial key to artificial general intelligence.
 
