@@ -123,10 +123,6 @@ For example, we run the program for `dbr_Barack_Obama`, we should use the comman
 neural-qa/templates_generator> python templates_generate_main.py  --dbo_class=Person --temps_fpath=../data/annotations_Person.csv --text_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.txt --ntriple_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.ntriples  --vecpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.vectors   --temp_save_fpath=../data/Bank/DBresourses/Person/Barack_Obama/Barack_Obama.template.csv
 ```
 
-### 1.6. Guidance
-
-
-
 <br>
 
 ## 2. Transformer
@@ -256,6 +252,10 @@ Another thing that I still remember is the paraphrasing of the predicates, we us
 ### Future Works
 
 We hope to keep on the work on making the question generation even better and including ASK queries, queries that require filter (how many, how much, etc.) and complex queries as well. Because we believe this can make the neural SPARQL machines get even better and better performance.
+
+### Continuation
+
+As an expansion of this propject, I continued to work on improving the answering accuracy of the model, where it made thorough use of the knowledge vector space for inferring the answer. Different from the other neural methodologies that concentrate on optimizing the SPARQL query generation to get the correct entity. I took a step further, leveraging the embeddings of the relevant triples in the question to infer its answer as a vector, with the reinforcement learning algorithm to optimize the vector distance in embedding space.
 
 <br>
 
