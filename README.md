@@ -201,7 +201,7 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 
 * NOTIFICATION: Since the current model officially by TensorFlow still has a potential issue, we strongly recommend you to train it on CPU or check the CUDA environment in case that the memory run out of storage and the threads get killed.
 
-### 2.3. Model Results
+### 2.3. Experiment Results
 
 * Training Time
 
