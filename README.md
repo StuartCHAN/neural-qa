@@ -29,13 +29,8 @@ Here is the [website](https://stuartjchan.online/) for blogging the research dev
 
 ## Abstract
 
-In this project, I propose a methodology that leverages Transformer for long-context question answering with knowledge graph. The main pipeline is using named-entity annotator and syntactic parser to generate a question template from the passages. A 
-template is a question that contains entities and relations 
-of the knowledge graph. Then in storing the 
-templates, the templates are embedded into universal 
-sentence encodings in order to categorize them 
-by measuring semantic similarity, which also avoids 
-the redundancy in storage. After that, we train a 
+In this project, I propose a methodology that leverages the Transformer for long-context questions answering with the knowledge graph. The main pipeline is using named-entity annotator and syntactic parser to generate a question template from the passages. A 
+template is a question that contains entities and relations of the knowledge graph. Then in storing the templates, the templates are embedded into universal sentence encodings to categorize them by measuring semantic similarity, which also avoids the redundancy in storage. After that, we train a 
 Transformer on the templates for translating a natural 
 language question with annotated triples into 
 SPARQL to get an answer from the knowledge graph. The answer accuracy in the evaluation was raised to 11.4% from the precedent 0.93%. 
@@ -101,19 +96,19 @@ Please have a look at the parameters:
 
 * 1. for `--dbo_class=$DBO_CLASS`, the `$DBO_CLASS` should be a ontology category, like: `Person`, `Monument`, etc.
 
-* 2. for `--temps_fpath=$EXISTING_TEMPLATES_FILE_PATH`, the `$EXISTING_TEMPLATES_FILE_PATH` should be a file path to the templateset for the DBpedia entity resource(dbr), like, for `Barack_Obama`, we should use the templateset for `Person`.
+* 2. for `--temps_fpath=$EXISTING_TEMPLATES_FILE_PATH`, the `$EXISTING_TEMPLATES_FILE_PATH` should be a file path to the template set for the DBpedia entity resource(dbr), like, for `Barack_Obama`, we should use the template set for `Person`.
 
 * 3. for `--text_fpath=$TEXT_FILE_PATH`, the `$TEXT_FILE_PATH` should be the text article extracted from the Wikipage.
 
 * 4. for `--ntriple_fpath=$NTRIPLES_FILE_PATH`, it should be the ntriple file.
 
-* 5. for `--train_vec=$WHETHER_TO_TRAIN_THE_VECTOR`, the default is to use the prepared vectors, however if you want, you can set it to `True`, which trains the vector by Universal Sentence Encoder.
+* 5. for `--train_vec=$WHETHER_TO_TRAIN_THE_VECTOR`, the default is to use the prepared vectors, however, if you want, you can set it to `True`, which trains the vector by Universal Sentence Encoder.
 
-* 6. for `--vecpath=$FILE_PATH_THAT_SAVES_VECTORS`, it's the file path where the vectors are store.
+* 6. for `--vecpath=$FILE_PATH_THAT_SAVES_VECTORS`, it's the file path where the vectors are stored.
 
-* 7. for `--temp_save_path=$FILE_PATH_SAVING_RESULTS `, please set the file path where you want to save the new templateset generated.
+* 7. for `--temp_save_path=$FILE_PATH_SAVING_RESULTS `, please set the file path where you want to save the new template set generated.
 
-    To find the ntriple files and text files automatically saved, please go into the `neural-qa/data/Bank/DBresources/`, you will see the folder corespondent to the entity's ontology category, like, for `Barack_Obama` is in category `Person`, then you can find the folder `neural-qa/data/Bank/DBresources/Person/Barack_Obama`, the ntriple file and the text file will be seen there. 
+    To find the ntriple files and text files automatically saved, please go into the `neural-qa/data/Bank/DBresources/`, you will see the folder correspondent to the entity's ontology category, like, for `Barack_Obama` is in category `Person`, then you can find the folder `neural-qa/data/Bank/DBresources/Person/Barack_Obama`, the ntriple file and the text file will be seen there. 
 
 * one result of our works can be seen [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/data/Bank.zip), which facilitates to clarify the structure of Templates Bank directory with the output results inside `Bank\DBresourses\Person\Barack_Obama`.
 
@@ -177,7 +172,7 @@ neural-qa/transformer_atten/transformer> python transformer_main.py --data_dir=.
 ```
 
 *  Please make sure the folders and paths that have been set in the commands already exist. 
-*  We stronly encourage to use one previously generated dataset can be found [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/transformer_atten/transformer/data.zip), and put it in `neural-qa/transformer_atten/transformer`. Decompress the zipped file and put it in the `neural-qa/transformer_atten/transformer/data/QALD7`.
+*  We strongly encourage to use one previously generated dataset can be found [here](https://github.com/StuartCHAN/neural-qa/blob/gsoc-stuart/transformer_atten/transformer/data.zip), and put it in `neural-qa/transformer_atten/transformer`. Decompress the zipped file and put it in the `neural-qa/transformer_atten/transformer/data/QALD7`.
 
 <br>
 
@@ -185,7 +180,7 @@ neural-qa/transformer_atten/transformer> python transformer_main.py --data_dir=.
 
 To conduct the training, please notice the parameters to set:
 
-* Please put all the tfrecord files in the `neural-qa/transformer_atten/transformer/data/QALD7/DATA_DIR/` to prevent the runing issues.
+* Please put all the tfrecord files in the `neural-qa/transformer_atten/transformer/data/QALD7/DATA_DIR/` to prevent the running issues.
 
 ```bash
    PARAM_SET=big
@@ -194,7 +189,7 @@ To conduct the training, please notice the parameters to set:
    VOCAB_FILE=$DATA_DIR/vocab.en_sparql
 ```
 
-* just a side note, please make sure the generated date for training are put in a folder that only contains the data without any file else, and we should put the generated tfrecords into a `DATA_DIR` folder in `transformer/data/QALD7`, otherwise it might raise the [tf.errors.DataLossError](https://www.tensorflow.org/api_docs/python/tf/errors/DataLossError). The model has risk at handeling the threads and the corrupted data loss error, the feasible solution that we know is to put the tfrecords in a separated folder, and make sure the access to write/read the files inside are already authorized.
+* just a side note, please make sure the generated date for training are put in a folder that only contains the data without any file else, and we should put the generated tfrecords into a `DATA_DIR` folder in `transformer/data/QALD7`, otherwise it might raise the [tf.errors.DataLossError](https://www.tensorflow.org/api_docs/python/tf/errors/DataLossError). The model has risk at handling the threads and the corrupted data loss error, the feasible solution that we know is to put the tfrecords in a separated folder, and make sure the access to write/read the files inside are already authorized.
 
 In our experiment, we use the command below:
 
@@ -224,7 +219,7 @@ python transformer_main.py --data_dir=./data/QALD7/DATA_DIR --model_dir=./data/Q
 
     The table shows the evaluation result for the QALD-7 benchmark:
 
-    The [GERBIL](http://gerbil-qa.aksw.org/gerbil/) is an online platform to do the question-answering F1-score evaluation with confusion matrix, and this table shows the answering accuracy of the model's output.
+    The [GERBIL](http://gerbil-qa.aksw.org/gerbil/) is an online platform to do the question-answering F1-score evaluation with the confusion matrix, and this table shows the answering accuracy of the model's output.
 
 ![Evaluation.](https://res.cloudinary.com/stuarteec/image/upload/v1566787028/transf_good.gerbil.qald7_jtqxfx.png "Evaluation")
     For better comparison, we have a blog about the [results](https://stuartjchan.online/2019/07/19/Week-7&8/) of QALD evaluation of original NSpM model.
@@ -247,7 +242,7 @@ In the beginning, I mean in the [initial proposal](https://docs.google.com/docum
 
 Of course, during the coding, we have countered so many difficulties, like doing the benchmark evaluations and some tough impediments, but as now I think about these problems, I think they gave me a totally thorough growth. I got to learn more and more about the newest products in the industry and get more adequate with the international coding standards which open my door to a bigger world. For example, in the part of calculating the vector similarity to match existing templates, we first used word mover distance with GLoVe vectors via gensim, but we found that was too heavy and too slow, then we used spaCy and found it much speedier. And soon after this, we found the Universal Sentence Encoder is even better in this task, which is a huge evolution in our development. 
 
-Another thing that I still remember is the paraphrasing of the predicates, we used to think load all the phrases in RAM and do the matching. I still remember that file was so huge even more than 17.6 GB. Then I found the wordnet from nltk can accomplish this paraphrasing task without such a huge cost, which is a smart solution.
+Another thing that I still remember is the paraphrasing of the predicates, we used to think load all the phrases in RAM and do the matching. I still remember that the file was so huge even more than 17.6 GB. Then I found the wordnet from nltk can accomplish this paraphrasing task without such a huge cost, which is a smart solution.
 
 ### Future Works
 
@@ -255,7 +250,7 @@ We hope to keep on the work on making the question generation even better and in
 
 ## Continuation
 
-As an expansion after this propject, I continued to work on improving the answering accuracy of the model, where it made thorough use of the knowledge vector space for inferring the answer. Different from the other neural methodologies that concentrate on optimizing the SPARQL query generation to get the correct entity. I took a step further, leveraging the embeddings of the relevant triples in the question to infer its answer as a vector, with the reinforcement learning algorithm to optimize the vector distance in embedding space.
+As an expansion after this project, I continued to work on improving the answering accuracy of the model, where it made thorough use of the knowledge vector space for inferring the answer. Different from the other neural methodologies that concentrate on optimizing the SPARQL query generation to get the correct entity. I took a step further, leveraging the embeddings of the relevant triples in the question to infer its answer as a vector, with the reinforcement learning algorithm to optimize the vector distance in embedding space.
 
 <br>
 
