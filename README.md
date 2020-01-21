@@ -253,7 +253,7 @@ Another thing that I still remember is the paraphrasing of the predicates, we us
 
 We hope to keep on the work on making the question generation even better and including ASK queries, queries that require filter (how many, how much, etc.) and complex queries as well. Because we believe this can make the neural SPARQL machines get even better and better performance.
 
-### Continuation
+## Continuation
 
 As an expansion of this propject, I continued to work on improving the answering accuracy of the model, where it made thorough use of the knowledge vector space for inferring the answer. Different from the other neural methodologies that concentrate on optimizing the SPARQL query generation to get the correct entity. I took a step further, leveraging the embeddings of the relevant triples in the question to infer its answer as a vector, with the reinforcement learning algorithm to optimize the vector distance in embedding space.
 
