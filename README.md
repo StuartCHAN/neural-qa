@@ -1,9 +1,10 @@
 # Neural SPARQL Machines: Attention-based Transformer with Automatic Templates Generation
 
 <br>
-An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Machine Translation Approach, with Automatic Templates Generator from Long Text.
+An Attention-based Transformer for Neural Question-Answering on Knowledge Graph, via Machine Translation Approach, with Automatic Templates Generator from Long Text. 
 
 The project is Stuart Chen's research in [Google 2019 GSoC](https://summerofcode.withgoogle.com/) in collaboration with DBpedia and AKSW Research Group. 
+
 
 Here is the [website](https://stuartjchan.online/) for blogging the research development.
 
@@ -25,6 +26,19 @@ Here is the [website](https://stuartjchan.online/) for blogging the research dev
 - [xmldict](https://pypi.org/project/xmldict/)
 
 <br>
+
+## Abstract
+
+In this project, I propose a methodology that leverages Transformer for long-context question answering with knowledge graph. The main pipeline is using named-entity annotator and syntactic parser to generate a question template from the passages. A 
+template is a question that contains entities and relations 
+of the knowledge graph. Then in storing the 
+templates, the templates are embedded into universal 
+sentence encodings in order to categorize them 
+by measuring semantic similarity, which also avoids 
+the redundancy in storage. After that, we train a 
+Transformer on the templates for translating a natural 
+language question with annotated triples into 
+SPARQL to get an answer from the knowledge graph. The answer accuracy in the evaluation was raised to 11.4% from the precedent 0.93%. 
 
 ## The Pipeline of Architecture
 
